@@ -1,9 +1,9 @@
-import PageContainer from '../../../Layouts/PageContainer';
+import { PageContainer } from '../../../Layouts/PageContainer'
 
 export const Settings = () => {
     return (
-        <PageContainer>
+        <PageContainer title='Settings'>
             <div>Settings</div>
         </PageContainer>
-    );
-};
+    )
+}

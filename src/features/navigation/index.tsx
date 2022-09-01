@@ -1,3 +1,3 @@
-import { Navigation } from './components/navigation';
+import { Navigation } from './components/navigation.component'
 
-export default Navigation;
+export default Navigation

@@ -1,9 +1,9 @@
-import PageContainer from '../../../Layouts/PageContainer';
+import { PageContainer } from '../../../Layouts/PageContainer'
 
 export const Account = () => {
     return (
-        <PageContainer>
+        <PageContainer title='Account'>
             <div>Account</div>
         </PageContainer>
-    );
-};
+    )
+}

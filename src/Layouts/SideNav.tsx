@@ -1,7 +1,9 @@
-import { AuxProps } from './PageContainer';
+import { AuxProps } from './PageContainer'
 
-const SideNav = ({ children }: AuxProps) => {
-    return <div>{children}</div>;
-};
-
-export default SideNav;
+export const SideNav = ({ children }: AuxProps) => {
+    return (
+        <div className='flex flex-col items-center w-1/5 h-screen px-4 py-8 bg-shadelight'>
+            {children}
+        </div>
+    )
+}
