@@ -12,7 +12,7 @@ import { User } from './user.component'
 
 export const Navigation = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { getLinkProps, getLinkIconProps }: any = useLink()
+    const { getLinkProps }: any = useLink()
 
     const links = (
         <>
@@ -22,15 +22,8 @@ export const Navigation = () => {
                         {...getLinkProps({ text, to: link })}
                         key={link}
                     >
-                        <img
-                            {...getLinkIconProps({
-                                text: 'logo',
-                                src: icon,
-                                height: 64,
-                                width: 64,
-                            })}
-                        />
-                        <p>{text}</p>
+                        {icon}
+                        <p className='text-sm font-sans'>{text}</p>
                     </Link>
                 )
             })}

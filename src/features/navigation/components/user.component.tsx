@@ -13,7 +13,7 @@ interface User {
 
 export const ImageCard = ({ image }: ImageProps) => {
     return (
-        <div className='w-32 h-32 my-2'>
+        <div className='w-20 h-20 my-2'>
             <img
                 src={image}
                 className='shadow-md rounded-3xl w-100'
@@ -24,11 +24,12 @@ export const ImageCard = ({ image }: ImageProps) => {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const User = () => {
-    const { name, image }: User = user
+    const { name, image, email }: User = user
     return (
-        <div className='flex flex-col items-center justify-center mb-6'>
+        <div className='flex flex-col items-center justify-center mb-12'>
             <ImageCard image={image} />
-            <p className='font-serif text-xl text-white'>{name}</p>
+            <p className='font-serif text-black font-medium'>{name}</p>
+            <p className='font-serif text-gray-500 text-xs'>{email}</p>
         </div>
     )
 }

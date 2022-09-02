@@ -9,7 +9,7 @@ interface LinkProps {
 // as if we want to pass the custom props we can do that also using getLinkProps
 export const useLink = () => {
     const className =
-        'flex flex-row items-center w-5/6 px-2 py-1 text-white hover:bg-purple-700 hover:scale-110'
+        'group flex flex-row items-center rounded-lg w-5/6 p-2 text-gray-600 hover:scale-110 hover:bg-teallight hover:text-tealdark'
 
     const getLinkProps = ({ text, ...props }: LinkProps) => {
         return {
@@ -20,17 +20,8 @@ export const useLink = () => {
         }
     }
 
-    const getLinkIconProps = ({ text, ...props }: LinkProps) => {
-        return {
-            className: 'p-1',
-            'aria-label': text,
-            ...props,
-        }
-    }
-
     return {
         className,
         getLinkProps,
-        getLinkIconProps,
     }
 }

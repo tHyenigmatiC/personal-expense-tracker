@@ -5,14 +5,21 @@ export interface AuxProps {
 }
 
 export const PageContainer = ({ title, children }: AuxProps) => {
-    return (
-        <div className='relative flex flex-col items-center w-4/6 h-screen min-h-screen py-6 bg-bglight'>
+    let pageTitle
+
+    if (title) {
+        pageTitle = (
             <p
                 className='mb-6 text-2xl font-extrabold text-shadelight'
                 aria-label='title'
             >
-                {title ?? 'Personal Expense Tracker'}
+                {title}
             </p>
+        )
+    }
+    return (
+        <div className='relative flex flex-col items-center w-3/5 h-screen min-h-screen pt-8 pb-6 bg-teallight'>
+            {pageTitle}
             {children}
             {/* <FooterNav /> */}
         </div>

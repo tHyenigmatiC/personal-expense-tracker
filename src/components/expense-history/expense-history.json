@@ -1,0 +1,30 @@
+[
+    {
+        "date": "2022-09-02T13:05:23.000Z",
+        "purpose": "Lunch",
+        "category": "Food",
+        "amount": 300,
+        "remaining": 18500
+    },
+    {
+        "date": "2022-09-01T13:05:23.000Z",
+        "purpose": "Bought a T-Shirt",
+        "category": "Clothes",
+        "amount": 700,
+        "remaining": 18800
+    },
+    {
+        "date": "2022-08-31T13:05:23.000Z",
+        "purpose": "Tea",
+        "category": "Friends",
+        "amount": 150,
+        "remaining": 19500
+    },
+    {
+        "date": "2022-08-29T13:05:23.000Z",
+        "purpose": "Went to mamaghar",
+        "category": "Travel",
+        "amount": 350,
+        "remaining": 19650
+    }
+]
