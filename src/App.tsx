@@ -6,7 +6,7 @@ import { routes } from './routes/page.routes'
 import './App.css'
 
 import Navigation from './features/navigation'
-import Calendar from './features/calendar'
+import Charts from './features/charts'
 
 // set up react location instance
 const location = new ReactLocation()
@@ -20,7 +20,7 @@ const App = () => {
             <div className='flex items-center justify-between h-screen min-h-screen'>
                 <Navigation />
                 <Outlet />
-                <Calendar />
+                <Charts />
             </div>
         </Router>
     )

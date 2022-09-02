@@ -14,6 +14,7 @@
     "chart.js": "^3.9.1",
     "date-fns": "^2.29.2",
     "react": "^18.2.0",
+    "react-calendar": "^3.7.0",
     "react-chartjs-2": "^4.3.1",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -48,6 +49,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-calendar": "^3.5.2",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
     "autoprefixer": "^10.4.8",

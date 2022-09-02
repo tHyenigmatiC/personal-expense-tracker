@@ -1,7 +1,10 @@
-export const Calendar = () => {
+import Calendar from 'react-calendar'
+import 'react-calendar/dist/Calendar.css'
+
+export const EventCalendar = () => {
     return (
-        <div className='flex flex-col items-center justify-center w-1/5 h-screen bg-white min-hs-screen'>
-            <p className='text-2xl font-bold text-shadedark'>Calendar</p>
+        <div className='w-11/12 h-64 mt-10'>
+            <Calendar className='text-white !bg-orange-500 rounded-2xl shadow !border-none' />
         </div>
     )
 }

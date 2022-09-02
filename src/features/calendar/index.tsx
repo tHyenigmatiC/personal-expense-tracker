@@ -1,3 +1,3 @@
-import { Calendar } from './calendar'
+import { EventCalendar } from './calendar'
 
-export default Calendar
+export default EventCalendar
