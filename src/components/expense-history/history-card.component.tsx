@@ -1,4 +1,4 @@
-import { formatDistanceToNow, parseISO, format } from 'date-fns'
+import { format } from 'date-fns'
 
 export interface TransactionHistoryProps {
     amount: string | number
@@ -9,7 +9,6 @@ export interface TransactionHistoryProps {
 
 export const HistoryCard = ({ amount, date, purpose, remaining }: TransactionHistoryProps) => {
     const formattedDate = format(new Date(date), 'LLL dd hh:mm a')
-    const timeAgo = formatDistanceToNow(parseISO(date))
 
     return (
         <div className='flex items-start justify-between shadow rounded-xl px-6 py-2 my-1 bg-white'>
