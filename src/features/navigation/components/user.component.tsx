@@ -1,4 +1,4 @@
-import user from '../user.json'
+import user from '../../../mock-data/user.json'
 
 interface ImageProps {
     image: string

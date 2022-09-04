@@ -8,6 +8,9 @@
 # testing
 /coverage
 
+# my resources folder for ui ideas
+/resources
+
 # production
 /build
 

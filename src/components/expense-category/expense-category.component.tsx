@@ -29,7 +29,7 @@ export const ExpenseCategory = () => {
                 title='Expenditure By Categories'
                 detail='sorted by highest'
             />
-            <div className='grid grid-cols-horizontal-overflow auto-cols-horizontal-overflow grid-flow-col overflow-x-auto p-4 gap-4 w-full'>
+            <div className='grid grid-cols-horizontal-overflow auto-cols-horizontal-overflow grid-flow-col overflow-x-auto p-2 gap-4 w-full'>
                 {expenseCategory}
             </div>
         </div>

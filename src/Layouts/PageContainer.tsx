@@ -10,7 +10,7 @@ export const PageContainer = ({ title, children }: AuxProps) => {
     if (title) {
         pageTitle = (
             <p
-                className='mb-6 text-2xl font-extrabold text-shadelight'
+                className='mb-6 text-2xl font-extrabold text-tealdark'
                 aria-label='title'
             >
                 {title}

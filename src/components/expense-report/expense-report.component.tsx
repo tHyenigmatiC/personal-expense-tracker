@@ -22,7 +22,7 @@ export const ExpenseReport = () => {
     return (
         <div className='flex flex-col w-full px-6'>
             <p className='text-2xl text-start text-shadedark'>{month} 2022</p>
-            <div className='grid w-10/12 grid-cols-3 gap-8 mt-6'>
+            <div className='grid w-10/12 grid-cols-3 gap-8 mt-4'>
                 {types.map((type: string) => {
                     return (
                         <ExpenseCard

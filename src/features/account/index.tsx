@@ -1,3 +1,3 @@
-import { Account } from './components/account';
+import { Account } from './components/account.component'
 
-export default Account;
+export default Account
