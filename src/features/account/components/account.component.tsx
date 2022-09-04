@@ -3,6 +3,7 @@ import { PageContainer } from '../../../Layouts/PageContainer'
 import { PhotoCard } from '../../../components/photo-card/photo-card.component'
 
 import { ProfileEdit } from './profile-edit.component'
+import { SecuritySettings } from './security-settings.component'
 
 // mock data
 import user from '../../../mock-data/user.json'
@@ -10,7 +11,7 @@ import user from '../../../mock-data/user.json'
 export const Account = () => {
     const { name, email, image } = user
     return (
-        <PageContainer title='Account'>
+        <PageContainer>
             <div className='flex items-center'>
                 <PhotoCard
                     width='w-32'
@@ -23,6 +24,7 @@ export const Account = () => {
                 </div>
             </div>
             <ProfileEdit {...user} />
+            <SecuritySettings />
         </PageContainer>
     )
 }

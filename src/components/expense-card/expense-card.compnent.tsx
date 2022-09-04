@@ -22,12 +22,12 @@ export const ExpenseCard = ({ type, amount, icon }: CardProps) => {
         <div className='flex flex-row items-center px-2 py-5 bg-white shadow rounded-xl'>
             {Icon}
             <div className='flex flex-col items-center'>
-                <p className='font-medium text-lg'>
+                <p className='text-lg font-medium'>
                     <span className='text-base'>Rs </span>
                     {parseInt(amount).toLocaleString('en-US')}
                 </p>
                 {type ? (
-                    <p className='text-xs mt-1 text-gray-400 uppercase font-medium'>{type}</p>
+                    <p className='mt-1 text-xs font-medium text-gray-400 uppercase'>{type}</p>
                 ) : null}
             </div>
         </div>

@@ -1,3 +1,3 @@
-import { EventCalendar } from './calendar'
+import { EventCalendar } from './calendar.component'
 
 export default EventCalendar

@@ -1,0 +1,15 @@
+.react-calendar__tile--now{
+    color: black;
+}
+
+.react-calendar--selectRange .react-calendar__tile--hover,
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus,
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+    background: #fa8f44;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth {
+    color: #424242
+}
