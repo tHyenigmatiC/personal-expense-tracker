@@ -45,30 +45,30 @@ export const ProfileEdit = ({ ...user }: UserProps) => {
     const submitButton = (
         <button
             type='submit'
-            className='bg-blue-600 max-w-fit p-2 rounded-md text-white font-medium mt-4'
+            className='bg-blue-600 max-w-fit p-2 rounded text-white text-sm mt-4'
         >
             Save Changes
         </button>
     )
 
     return (
-        <div className='flex flex-col items-start w-full px-36'>
-            <p className='ml-1 mt-2 font-medium text-gray-500'>Profile</p>
+        <div className='flex flex-col items-start'>
+            <p className='ml-1 mt-2 text-sm font-medium text-gray-600'>Profile</p>
             <form
                 onSubmit={handleOnSubmit}
-                className='mt-2'
+                className='mt-1 text-sm w-full'
             >
                 <div className='grid grid-cols-2 gap-x-10 bg-tealdark p-4 rounded-md shadow-md'>
                     <div className='flex flex-col'>
-                        <div className='flex items-start justify-start'>
+                        <div className='flex items-center justify-between mb-1'>
                             <label
                                 htmlFor='name'
-                                className='ml-1 mb-1 font-medium text-white'
+                                className='ml-1 text-white'
                             >
                                 Name
                             </label>
                             <EditIcon
-                                className='text-blue-400 w-5 h-5 ml-2 cursor-pointer'
+                                className='text-blue-400 w-4 h-4 cursor-pointer'
                                 onClick={() => toggleInputEditable({ type: 'name' })}
                             />
                         </div>
@@ -82,15 +82,15 @@ export const ProfileEdit = ({ ...user }: UserProps) => {
                         />
                     </div>
                     <div className='flex flex-col'>
-                        <div className='flex items-start justify-start'>
+                        <div className='flex items-start justify-between mb-1'>
                             <label
                                 htmlFor='email'
-                                className='ml-1 mb-1 font-medium text-white'
+                                className='ml-1 text-white'
                             >
                                 Email
                             </label>
                             <EditIcon
-                                className='text-blue-400 w-5 h-5 ml-2 cursor-pointer'
+                                className='text-blue-400 w-4 h-4 cursor-pointer'
                                 onClick={() => toggleInputEditable({ type: 'email' })}
                             />
                         </div>
@@ -103,8 +103,8 @@ export const ProfileEdit = ({ ...user }: UserProps) => {
                             disabled={!isInputEditable.email}
                         />
                     </div>
-                    {canSubmit ? submitButton : null}
                 </div>
+                {canSubmit ? submitButton : null}
             </form>
         </div>
     )

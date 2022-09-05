@@ -18,7 +18,7 @@ export const PageContainer = ({ title, children }: AuxProps) => {
         )
     }
     return (
-        <div className='relative flex flex-col items-center w-3/5 h-screen min-h-screen pt-8 pb-6 bg-teallight'>
+        <div className='relative flex flex-col items-center w-3/5 h-screen min-h-screen pt-8 pb-6 bg-teallight overflow-y-scroll'>
             {pageTitle}
             {children}
             {/* <FooterNav /> */}

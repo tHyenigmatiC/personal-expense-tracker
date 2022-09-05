@@ -14,6 +14,7 @@ module.exports = {
                 teallight: '#f2f8f8',
                 tealdark: '#006666',
                 cardbg: '#fefefe',
+                'btn-primary': '#50c878',
             },
             gridAutoColumns: {
                 'horizontal-overflow': 'minmax(160px,1fr)',
