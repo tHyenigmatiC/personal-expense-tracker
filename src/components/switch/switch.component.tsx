@@ -14,7 +14,7 @@ import * as React from 'react'
 const noop = () => {
     console.log('changed')
 }
-
+// eslint-disable-next-line
 export const Switch = ({ on, ariaLabel, onClick, className = '', ...props }: any) => {
     const btnClassName = [className, 'toggle-btn', on ? 'toggle-btn-on' : 'toggle-btn-off']
         .filter(Boolean)
