@@ -63,6 +63,7 @@ const AuthProvider = ({ children }: IChildren) => {
     const register = (credentials: IRegister) => {
         setIsLoading(true)
         registerUser(credentials).then(response => {
+            console.log(response)
             const {
                 data: { user },
                 error,

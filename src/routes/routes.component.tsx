@@ -19,10 +19,14 @@ export const Route = () => {
         state: { matches },
     } = useRouter()
 
-    return matches[0]?.data.protected ? (
-        <ProtectedRoute matches={matches} />
+    return matches[0] ? (
+        matches[0]?.data.protected ? (
+            <ProtectedRoute matches={matches} />
+        ) : (
+            <FilteredPage matches={matches} />
+        )
     ) : (
-        <FilteredPage matches={matches} />
+        <Loader />
     )
 }
 

@@ -1,38 +1,38 @@
-import { FormEvent, useState } from 'react'
+import { ChangeEventHandler, FormEventHandler, useState } from 'react'
 
-import { supabase } from '../../../../db/supabaseClient'
+import { useAuth } from '../../context/useAuth'
 
 export const Register = () => {
-    const [loading, setLoading] = useState(false)
-    const [email, setEmail] = useState('')
+    const [formState, setFormState] = useState({
+        email: '',
+        password: '',
+        name: '',
+    })
 
-    const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
+    const { error, register, isLoading } = useAuth()
+
+    const handleChange: ChangeEventHandler<HTMLInputElement> = e => {
+        setFormState({ ...formState, [e.target.name]: e.target.value })
+    }
+
+    const handleRegister: FormEventHandler<HTMLFormElement> = e => {
         e.preventDefault()
+        register(formState)
+    }
 
-        try {
-            setLoading(true)
-            const { error } = await supabase.auth.signInWithOtp({ email })
-            if (error) throw error
-            alert('Check your email for the login link!')
-        } catch (error) {
-            // as typescript default the error object to unknown
-            // this is how we can tell typescript that we are
-            // also unaware about the type of error. but hey let
-            // come to compromise. I will check if the error is instance of Error
-            // if then I will just get the message object
-            let message
-            if (error instanceof Error) message = error.message
-            else message = String(error)
+    let errorMessage
 
-            alert(message)
-        } finally {
-            setLoading(false)
-        }
+    if (error) {
+        errorMessage = (
+            <p className='text-red-600 bg-teallight rounded p-1 text-sm font-semibold mt-4'>
+                {error.message}
+            </p>
+        )
     }
 
     return (
         <div className='w-full bg-white h-screen'>
-            <div className='flex flex-col items-center justify-start my-24'>
+            <div className='flex flex-col items-center justify-start my-20'>
                 <p className='text-4xl font-bold drop-shadow-lg text-orange-600'>
                     P<span className='text-6xl'>€</span>T
                 </p>
@@ -40,36 +40,75 @@ export const Register = () => {
                     className='my-8 bg-tealdark p-8 rounded-md shadow-md text-white'
                     aria-live='polite'
                 >
-                    <p className='text-white'>Sign in via magic link with your email below</p>
-                    {loading ? (
-                        'Sending magic link...'
+                    <p className='text-dark text-2xl text-center'>Personal Expense Tracker</p>
+                    <p className='text-orange-300 text-md text-center mt-2'>
+                        We are eager to help your with your expense tracking
+                    </p>
+                    {isLoading ? (
+                        'Logging...'
                     ) : (
                         <form
-                            className='flex flex-col items-center'
-                            onSubmit={handleLogin}
+                            className='flex flex-col items-center justify-center mt-4'
+                            onSubmit={handleRegister}
                         >
-                            <div className='block mt-4'>
+                            <div className='flex items-center mt-4'>
                                 <label
-                                    className='mr-4'
+                                    className='mr-4 w-16'
+                                    htmlFor='name'
+                                >
+                                    Name
+                                </label>
+                                <input
+                                    id='name'
+                                    name='name'
+                                    className='p-2 rounded text-black'
+                                    type='text'
+                                    placeholder='Full Name'
+                                    value={formState.name}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <div className='flex items-center mt-4'>
+                                <label
+                                    className='mr-4 w-16'
                                     htmlFor='email'
                                 >
                                     Email
                                 </label>
                                 <input
                                     id='email'
+                                    name='email'
                                     className='p-2 rounded text-black'
                                     type='email'
                                     placeholder='email@address.com'
-                                    value={email}
-                                    onChange={e => setEmail(e.target.value)}
+                                    value={formState.email}
+                                    onChange={handleChange}
                                 />
                             </div>
+                            <div className='flex items-center mt-4'>
+                                <label
+                                    className='mr-4 w-16'
+                                    htmlFor='password'
+                                >
+                                    Password
+                                </label>
+                                <input
+                                    id='password'
+                                    name='password'
+                                    className='p-2 rounded text-black'
+                                    type='password'
+                                    placeholder='******'
+                                    value={formState.password}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            {errorMessage}
                             <button
-                                className='bg-orange-600 w-fit mt-8 p-2 rounded'
+                                className='bg-orange-600 w-fit mt-8 py-2 px-8 rounded shadow-xl'
                                 aria-live='polite'
                                 type='submit'
                             >
-                                Send magic link
+                                Register
                             </button>
                         </form>
                     )}
