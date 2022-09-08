@@ -4,6 +4,9 @@ module.exports = {
     content: ['./src/**/*.{js,jsx,ts,tsx}'],
     theme: {
         extend: {
+            backgroundImage: {
+                '404Image': 'url(\'https://i.imgur.com/yW2W9SC.png\')'
+            },
             colors: {
                 bgdark: '#abf2ab',
                 bgmedium: '#c7f6c7',
@@ -15,6 +18,14 @@ module.exports = {
                 tealdark: '#006666',
                 cardbg: '#fefefe',
                 'btn-primary': '#50c878',
+                bannercolor: '#9F6C66',
+            },
+            height: {
+                '40vh': '40vh',
+                '60vh': '60vh',
+            },
+            width: {
+                '40vh': '40vh',
             },
             gridAutoColumns: {
                 'horizontal-overflow': 'minmax(160px,1fr)',

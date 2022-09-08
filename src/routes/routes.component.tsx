@@ -1,33 +1,48 @@
-import { Outlet, Navigate, useRouter } from '@tanstack/react-location'
+import { Outlet, Navigate, useRouter, RouteMatch, DefaultGenerics } from '@tanstack/react-location'
 
 import Navigation from '../features/navigation'
 import Charts from '../features/charts'
 import { useAuth } from '../features/authentication/context/useAuth'
 import { Session } from '@supabase/supabase-js'
+import Loader from '../components/loader/loader.component'
 
 interface ISession {
     session: Session | null
 }
 
+interface IMatches {
+    matches: RouteMatch<DefaultGenerics>[]
+}
+
 export const Route = () => {
-    const { session } = useAuth()
     const {
         state: { matches },
     } = useRouter()
 
-    return matches[0]?.data.protected ? <ProtectedRoute session={session} /> : <FullPageRoute />
-}
-
-const ProtectedRoute = ({ session }: ISession) => {
-    return session ? (
-        <>
-            <Navigation />
-            <Outlet />
-            <Charts />
-        </>
+    return matches[0]?.data.protected ? (
+        <ProtectedRoute matches={matches} />
     ) : (
-        <Navigate to='/login' />
+        <FilteredPage matches={matches} />
     )
 }
 
-const FullPageRoute = () => <Outlet />
+const ProtectedRoute = ({ matches }: IMatches) => {
+    const { session } = useAuth()
+    return session ? <FilteredPage matches={matches} /> : <Navigate to='/login' />
+}
+
+const FilteredPage = ({ matches }: IMatches) => {
+    return matches[0] ? (
+        matches[0].data.pageType === 'full' ? (
+            <Outlet />
+        ) : (
+            <>
+                <Navigation />
+                <Outlet />
+                <Charts />
+            </>
+        )
+    ) : (
+        <Loader />
+    )
+}
