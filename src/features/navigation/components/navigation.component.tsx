@@ -9,6 +9,7 @@ import { navlinks, Navlink } from '../navlinks'
 import { SideNav } from '../../../Layouts/SideNav'
 
 import { User } from './user.component'
+import { TextLogo } from '../../../components/text-logo/text-logo.componen'
 
 export const Navigation = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -31,6 +32,10 @@ export const Navigation = () => {
     )
     return (
         <SideNav>
+            <TextLogo
+                size='small'
+                name
+            />
             <User />
             {links}
         </SideNav>

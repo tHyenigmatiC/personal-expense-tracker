@@ -1,3 +1,3 @@
-import { Register } from './register/register.component'
+import { Register } from './components/register.container'
 
 export default Register

@@ -12,7 +12,6 @@ import { Route } from './routes/routes.component'
 
 import './App.css'
 
-
 // set up react location instance
 const location = new ReactLocation()
 

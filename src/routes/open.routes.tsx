@@ -9,7 +9,7 @@ export const routes: Route<DefaultGenerics>[] = [
     { path: '/login', element: <Login />, loader: () => ({ pageType: 'full' }) },
     { path: '/register', element: <Register />, loader: () => ({ pageType: 'full' }) },
     {
-        path: '/*',
+        path: '*',
         element: <PageNotFound />,
         loader: () => ({ pageType: 'full' }),
         pendingElement: <Loader />,

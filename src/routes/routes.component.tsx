@@ -3,48 +3,62 @@ import { Outlet, Navigate, useRouter, RouteMatch, DefaultGenerics } from '@tanst
 import Navigation from '../features/navigation'
 import Charts from '../features/charts'
 import { useAuth } from '../features/authentication/context/useAuth'
-import { Session } from '@supabase/supabase-js'
 import Loader from '../components/loader/loader.component'
+import { Session } from '@supabase/supabase-js'
 
-interface ISession {
-    session: Session | null
-}
-
-interface IMatches {
+interface IPageProps {
     matches: RouteMatch<DefaultGenerics>[]
+    session?: Session | null
 }
 
 export const Route = () => {
+    const { session } = useAuth()
     const {
         state: { matches },
     } = useRouter()
 
     return matches[0] ? (
         matches[0]?.data.protected ? (
-            <ProtectedRoute matches={matches} />
+            <ProtectedRoute
+                matches={matches}
+                session={session}
+            />
         ) : (
-            <FilteredPage matches={matches} />
+            <NormalRoute
+                matches={matches}
+                session={session}
+            />
         )
     ) : (
         <Loader />
     )
 }
 
-const ProtectedRoute = ({ matches }: IMatches) => {
-    const { session } = useAuth()
+const ProtectedRoute = ({ matches, session }: IPageProps) => {
     return session ? <FilteredPage matches={matches} /> : <Navigate to='/login' />
 }
 
-const FilteredPage = ({ matches }: IMatches) => {
+const NormalRoute = ({ matches, session }: IPageProps) => {
+    const redirect =
+        !!session &&
+        matches[0] &&
+        (matches[0].pathname === '/login' || matches[0].pathname === '/register')
+
+    if (redirect) return <Navigate to='/' />
+
+    return <FilteredPage matches={matches} />
+}
+
+const FilteredPage = ({ matches }: IPageProps) => {
     return matches[0] ? (
         matches[0].data.pageType === 'full' ? (
             <Outlet />
         ) : (
-            <>
+            <div className='flex items-center justify-between h-screen min-h-screen'>
                 <Navigation />
                 <Outlet />
                 <Charts />
-            </>
+            </div>
         )
     ) : (
         <Loader />

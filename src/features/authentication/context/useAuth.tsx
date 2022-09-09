@@ -1,4 +1,4 @@
-import { AuthError, Session, User } from '@supabase/supabase-js'
+import { AuthError, PostgrestError, Session, User } from '@supabase/supabase-js'
 import { createContext, ReactNode, useState, useEffect, useContext } from 'react'
 import { supabase } from '../../../db/supabaseClient'
 
@@ -20,7 +20,9 @@ interface IAuth {
     session: Session | null
     login: (credentials: ILogin) => void
     register: (credentials: IRegister) => void
-    error: AuthError | null
+    error: AuthError | PostgrestError | null
+    clearError: () => void
+    success: boolean
     isLoading: boolean
 }
 
@@ -34,7 +36,9 @@ const INITIAL_VALUE: IAuth = {
     login: () => undefined,
     register: () => undefined,
     error: null,
+    clearError: () => undefined,
     isLoading: false,
+    success: false,
 }
 
 const UserContext = createContext(INITIAL_VALUE)
@@ -43,8 +47,9 @@ UserContext.displayName = 'UserContext'
 const AuthProvider = ({ children }: IChildren) => {
     const [user, setUser] = useState<User | null>(null)
     const [session, setSession] = useState<Session | null>(null)
-    const [error, setError] = useState<AuthError | null>(null)
+    const [error, setError] = useState<AuthError | PostgrestError | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [success, setSuccess] = useState<boolean>(false)
 
     const login = (credentials: ILogin) => {
         setIsLoading(true)
@@ -62,17 +67,26 @@ const AuthProvider = ({ children }: IChildren) => {
 
     const register = (credentials: IRegister) => {
         setIsLoading(true)
-        registerUser(credentials).then(response => {
-            console.log(response)
-            const {
-                data: { user },
-                error,
-            } = response
+        registerUser(credentials)
+            .then(response => {
+                const { error } = response
 
-            if (error) setError(error)
-            setUser(user)
-            setIsLoading(false)
-        })
+                if (error) {
+                    setError(error)
+                } else {
+                    setSuccess(true)
+                    setError(null)
+                }
+                setIsLoading(false)
+            })
+            .catch(error => {
+                setError(error)
+                setIsLoading(false)
+            })
+    }
+
+    const clearError = () => {
+        setError(null)
     }
 
     useEffect(() => {
@@ -89,9 +103,11 @@ const AuthProvider = ({ children }: IChildren) => {
         user,
         session,
         error,
+        clearError,
         login,
         register,
         isLoading,
+        success,
     }
 
     return <UserContext.Provider value={value}>{children}</UserContext.Provider>

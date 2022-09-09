@@ -16,7 +16,7 @@ export const ImageCard = ({ image }: ImageProps) => {
         <div className='w-20 h-20 my-2'>
             <img
                 src={image}
-                className='shadow-md rounded-3xl w-100'
+                className='shadow-md rounded-full w-100'
             />
         </div>
     )

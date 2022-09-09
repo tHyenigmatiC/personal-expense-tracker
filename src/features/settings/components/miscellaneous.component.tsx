@@ -1,4 +1,4 @@
-import { ChangeEvent, useMemo, useRef, useState } from 'react'
+import { ChangeEvent, useRef, useState } from 'react'
 import { filterUpdatedValue } from '../../../utils/utils'
 
 const INITIAL_MISC_SETTINGS = {
@@ -21,9 +21,7 @@ export const MiscellaneousSettings = () => {
 
     const handleUpdateClick = () => {
         alert('value updated')
-    }
-
-    console.log(valuesChanged, Boolean(valuesChanged))
+    }   
 
     let actionButton
 
