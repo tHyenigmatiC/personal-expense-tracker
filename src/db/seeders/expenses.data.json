@@ -1,0 +1,30 @@
+[
+    {
+        "user_id": "c45be567-0cca-4e65-a192-4775f41f9864",
+        "memo": "Lunch",
+        "category": "Food",
+        "amount": 300,
+        "remaining": 18500
+    },
+    {
+        "user_id": "c45be567-0cca-4e65-a192-4775f41f9864",
+        "memo": "Bought a T-Shirt",
+        "category": "Clothes",
+        "amount": 700,
+        "remaining": 18800
+    },
+    {
+        "user_id": "c45be567-0cca-4e65-a192-4775f41f9864",
+        "memo": "Tea",
+        "category": "Friends",
+        "amount": 150,
+        "remaining": 19500
+    },
+    {
+        "user_id": "c45be567-0cca-4e65-a192-4775f41f9864",
+        "memo": "Went to mamaghar",
+        "category": "Travel",
+        "amount": 350,
+        "remaining": 19650
+    }
+]

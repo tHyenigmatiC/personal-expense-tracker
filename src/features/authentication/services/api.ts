@@ -23,13 +23,11 @@ export const registerUser = async (
     }
 
     const response = await supabase.from('profiles').insert(updates)
-    console.log(response)
     return response
 }
 
 export const loginUser = async (credentials: ILogin): Promise<AuthResponse> => {
     const response = await supabase.auth.signInWithPassword(credentials)
-    console.log(response)
     return response
 }
 

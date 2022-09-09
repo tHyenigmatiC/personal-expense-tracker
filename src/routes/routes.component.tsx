@@ -44,7 +44,14 @@ const NormalRoute = ({ matches, session }: IPageProps) => {
         matches[0] &&
         (matches[0].pathname === '/login' || matches[0].pathname === '/register')
 
-    if (redirect) return <Navigate to='/' />
+    if (redirect)
+        return (
+            <Navigate
+                to='/'
+                replace
+                fromCurrent
+            />
+        )
 
     return <FilteredPage matches={matches} />
 }

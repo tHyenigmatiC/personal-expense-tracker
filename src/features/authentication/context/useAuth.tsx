@@ -16,7 +16,6 @@ export interface ILogin {
 }
 
 interface IAuth {
-    user: User | null
     session: Session | null
     login: (credentials: ILogin) => void
     register: (credentials: IRegister) => void
@@ -31,7 +30,6 @@ interface IChildren {
 }
 
 const INITIAL_VALUE: IAuth = {
-    user: null,
     session: null,
     login: () => undefined,
     register: () => undefined,
@@ -45,7 +43,6 @@ const UserContext = createContext(INITIAL_VALUE)
 UserContext.displayName = 'UserContext'
 
 const AuthProvider = ({ children }: IChildren) => {
-    const [user, setUser] = useState<User | null>(null)
     const [session, setSession] = useState<Session | null>(null)
     const [error, setError] = useState<AuthError | PostgrestError | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -54,13 +51,9 @@ const AuthProvider = ({ children }: IChildren) => {
     const login = (credentials: ILogin) => {
         setIsLoading(true)
         loginUser(credentials).then(response => {
-            const {
-                data: { user },
-                error,
-            } = response
+            const { error } = response
 
             if (error) setError(error)
-            setUser(user)
             setIsLoading(false)
         })
     }
@@ -100,7 +93,6 @@ const AuthProvider = ({ children }: IChildren) => {
     }, [])
 
     const value = {
-        user,
         session,
         error,
         clearError,

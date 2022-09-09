@@ -8,14 +8,17 @@ export const Settings = () => {
     const [logginOut, setLogginOut] = useState<boolean>(false)
     const [showMessage, setShowMessage] = useState<boolean>(false)
 
-    // currenlty when the user click log out
-    // the following actions are performed
-    //  1. animate logout button and hide
-    //  2. add event handlers to disable mouse clicks on page and hide mouse cursor until logged out
-    //  3. show logout message with animation
-    //  4. logout from website
-    //  5. redirec to login page
-    //  6. remove all event handlers
+    /* 
+    currenlty when the user click log out
+    the following actions are performed
+     1. animate logout button and hide
+     2. add event handlers to disable mouse clicks on page and hide mouse cursor until logged out
+     3. show logout message with animation
+     4. logout from website
+     5. redirec to login page
+     6. remove all event handlers
+    */
+
     useEffect(() => {
         const handler = (e: MouseEvent) => {
             e.stopPropagation()

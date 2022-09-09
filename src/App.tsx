@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { ReactLocation, Router } from '@tanstack/react-location'
 import { ReactLocationDevtools } from '@tanstack/react-location-devtools'
 
@@ -11,11 +11,22 @@ import { AuthProvider } from './features/authentication/context/useAuth'
 import { Route } from './routes/routes.component'
 
 import './App.css'
+import { addExpenses } from './db/seeders/seed'
 
 // set up react location instance
 const location = new ReactLocation()
 
 const App = () => {
+
+    // const firstLoad = useRef(true)
+    // useEffect(() => {
+    //     if (firstLoad.current) {
+    //         addExpenses()
+    //         firstLoad.current = false
+    //     }
+    // }, [])
+
+    
     return (
         <AuthProvider>
             <Router
