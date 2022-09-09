@@ -11,22 +11,21 @@ import { AuthProvider } from './features/authentication/context/useAuth'
 import { Route } from './routes/routes.component'
 
 import './App.css'
-import { addExpenses } from './db/seeders/seed'
+import { addExpenses, addMonthlyReport } from './db/seeders/seed'
 
 // set up react location instance
 const location = new ReactLocation()
 
 const App = () => {
+    const firstLoad = useRef(true)
+    useEffect(() => {
+        if (firstLoad.current) {
+            // addExpenses()
+            // addMonthlyReport()
+            firstLoad.current = false
+        }
+    }, [])
 
-    // const firstLoad = useRef(true)
-    // useEffect(() => {
-    //     if (firstLoad.current) {
-    //         addExpenses()
-    //         firstLoad.current = false
-    //     }
-    // }, [])
-
-    
     return (
         <AuthProvider>
             <Router
