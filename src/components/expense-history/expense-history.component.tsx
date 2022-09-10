@@ -5,7 +5,6 @@ import { SectionHeader } from '../section-header/section-header.component'
 // useExpense Hook
 import { useExpense } from '../../context/expense/useExpense'
 import { useEffect } from 'react'
-import { useAuth } from '../../features/authentication/context/useAuth'
 
 // Temporary Workaround
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
@@ -25,12 +24,9 @@ export const ExpenseHistory = () => {
         getExpenses,
     } = useExpense()
 
-    const { session } = useAuth()
-
     useEffect(() => {
-        const loadExpenseData = expenseData.length === 0 && session?.user
-        if (loadExpenseData) getExpenses(session?.user?.id)
-    }, [expenseData, session])
+        if (expenseData.length === 0) getExpenses()
+    }, [expenseData])
 
     let expenseHistory
 

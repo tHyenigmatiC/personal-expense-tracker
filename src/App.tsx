@@ -11,7 +11,9 @@ import { AuthProvider } from './features/authentication/context/useAuth'
 import { Route } from './routes/routes.component'
 
 import './App.css'
-import { addExpenses, addMonthlyReport } from './db/seeders/seed'
+
+// seeders for initial data loading
+import { addExpenses, addMonthlyReport, addCategoryType } from './db/seeders/seed'
 
 // set up react location instance
 const location = new ReactLocation()
@@ -22,6 +24,7 @@ const App = () => {
         if (firstLoad.current) {
             // addExpenses()
             // addMonthlyReport()
+            // addCategoryType()
             firstLoad.current = false
         }
     }, [])

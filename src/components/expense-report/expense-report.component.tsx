@@ -6,20 +6,18 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import { ExpenseCard } from '../expense-card/expense-card.compnent'
 
 import { useExpense } from '../../context/expense/useExpense'
-import { useAuth } from '../../features/authentication/context/useAuth'
 
 export const ExpenseReport = () => {
     const { getReport, expense } = useExpense()
-    const { session } = useAuth()
 
-    const hasSession = session?.user
+    const data = expense.report
 
     const currentMonth = new Date().toLocaleDateString('default', { month: 'long' })
 
     useEffect(() => {
         // eslint-disable-next-line camelcase
-        if (hasSession) getReport({ report_type: currentMonth, user_id: session.user.id })
-    }, [])
+        if (!data) getReport({ report_type: currentMonth })
+    }, [data])
 
     const hasData = !!expense.report
 

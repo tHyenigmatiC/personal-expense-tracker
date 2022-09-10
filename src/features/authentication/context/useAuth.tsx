@@ -1,4 +1,4 @@
-import { AuthError, PostgrestError, Session, User } from '@supabase/supabase-js'
+import { AuthError, PostgrestError, Session } from '@supabase/supabase-js'
 import { createContext, ReactNode, useState, useEffect, useContext } from 'react'
 import { supabase } from '../../../db/supabaseClient'
 

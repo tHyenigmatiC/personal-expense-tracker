@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { createContext, ReactNode, useContext, useState } from 'react'
-import { getAllExpenseForUser, getReportByType } from '../../api/api'
+import { getAllExpenseForUser, getExpenseCategoriesWithData, getReportByType } from '../../api/api'
+import { useAuth } from '../../features/authentication/context/useAuth'
 
 interface IExpense {
     created_at: string | number | Date
@@ -20,33 +21,53 @@ interface IReportWithImage extends IReport {
     image: string
 }
 
+interface ICategoryExpense {
+    home: string
+    study: string
+    travel: string
+    friends: string
+    work: string
+    food: string
+    clothes: string
+    miscellaneous: string
+}
+
 interface IExpenseData {
     data: IExpense[] | []
     report: IReportWithImage | null | object
-}
-
-interface IContext {
-    expense: IExpenseData
-    getExpenses: (user_id: string) => void
-    getReport: (query: IReportParam) => void
+    categories: ICategoryExpense | null | object
 }
 
 interface IChildren {
     children: ReactNode
 }
 
-interface IReportParam {
+interface IReportQuery {
     report_type: string
-    user_id: string
+}
+
+interface ICategoryQuery {
+    type: string
+    value: string
+    month?: string
+}
+
+interface IContext {
+    expense: IExpenseData
+    getExpenses: () => void
+    getReport: (query: IReportQuery) => void
+    getExpenseWithCategories: (query: ICategoryQuery) => void
 }
 
 const INTIAL_VALUE: IContext = {
     expense: {
         data: [],
         report: null,
+        categories: null,
     },
     getExpenses: () => undefined,
     getReport: () => undefined,
+    getExpenseWithCategories: () => undefined,
 }
 
 // TODO: find better way to store image object
@@ -59,9 +80,13 @@ ExpenseContext.displayName = 'ExpenseContext'
 const ExpenseProvider = ({ children }: IChildren) => {
     const [expenseData, setExpenseData] = useState<IExpense[] | []>([])
     const [report, setReport] = useState<IReportWithImage | null>(null)
+    const [categories, setCategories] = useState<ICategoryExpense | null | object>(null)
+    const { session } = useAuth()
+    const hasSession = !!session?.user
 
-    const getExpenses = (userId: string) => {
-        getAllExpenseForUser(userId)
+    const getExpenses = () => {
+        if (!hasSession) return
+        getAllExpenseForUser(session.user.id)
             .then(response => {
                 const { data, error } = response
 
@@ -74,8 +99,10 @@ const ExpenseProvider = ({ children }: IChildren) => {
             })
     }
 
-    const getReport = (query: IReportParam) => {
-        getReportByType(query)
+    const getReport = (query: IReportQuery) => {
+        if (!hasSession) return
+
+        getReportByType({ ...query, user_id: session.user.id })
             .then(response => {
                 const { data, error } = response
 
@@ -91,13 +118,30 @@ const ExpenseProvider = ({ children }: IChildren) => {
             })
     }
 
+    const getExpenseWithCategories = (query: ICategoryQuery) => {
+        if (!hasSession) return
+        getExpenseCategoriesWithData({ ...query, user_id: session.user.id })
+            .then(response => {
+                const { data, error } = response
+
+                if (error) throw error
+                setCategories({ ...data })
+            })
+            .catch(error => {
+                console.log(error)
+                throw error
+            })
+    }
+
     const value: IContext = {
         expense: {
             data: expenseData,
             report,
+            categories,
         },
         getExpenses,
         getReport,
+        getExpenseWithCategories,
     }
     return <ExpenseContext.Provider value={value}>{children}</ExpenseContext.Provider>
 }
@@ -111,4 +155,4 @@ const useExpense = () => {
     return context
 }
 
-export { ExpenseProvider, useExpense }
+export { ExpenseContext, ExpenseProvider, useExpense }

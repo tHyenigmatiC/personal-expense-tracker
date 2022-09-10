@@ -9,7 +9,7 @@ import { navlinks, Navlink } from '../navlinks'
 import { SideNav } from '../../../Layouts/SideNav'
 
 import { User } from './user.component'
-import { TextLogo } from '../../../components/text-logo/text-logo.componen'
+import { TextLogo } from '../../../components/text-logo/text-logo.component'
 
 export const Navigation = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
