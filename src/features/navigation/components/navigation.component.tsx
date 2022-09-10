@@ -10,8 +10,9 @@ import { SideNav } from '../../../Layouts/SideNav'
 
 import { User } from './user.component'
 import { TextLogo } from '../../../components/text-logo/text-logo.component'
+import { memo } from 'react'
 
-export const Navigation = () => {
+export const nNavigation = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { getLinkProps }: any = useLink()
 
@@ -41,3 +42,5 @@ export const Navigation = () => {
         </SideNav>
     )
 }
+
+export const Navigation = memo(nNavigation)

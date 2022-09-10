@@ -13,7 +13,12 @@ import { Route } from './routes/routes.component'
 import './App.css'
 
 // seeders for initial data loading
-import { addExpenses, addMonthlyReport, addCategoryType } from './db/seeders/seed'
+// import {
+//     addExpenses,
+//     addMonthlyReport,
+//     addCategoryType,
+//     updateUserMetadata,
+// } from './db/seeders/seed'
 
 // set up react location instance
 const location = new ReactLocation()
@@ -25,6 +30,7 @@ const App = () => {
             // addExpenses()
             // addMonthlyReport()
             // addCategoryType()
+            // updateUserMetadata()
             firstLoad.current = false
         }
     }, [])

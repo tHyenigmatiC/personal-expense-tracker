@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { memo, useEffect } from 'react'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
@@ -51,7 +51,7 @@ const CharContainer = () => {
     return <>{chartData}</>
 }
 
-export const Charts = () => {
+export const nCharts = () => {
     return (
         <ColumnContainer>
             <ExpenseProvider>
@@ -61,3 +61,5 @@ export const Charts = () => {
         </ColumnContainer>
     )
 }
+
+export const Charts = memo(nCharts)

@@ -1,30 +1,41 @@
-import { FormEvent, useState, ChangeEvent, useRef, useMemo } from 'react'
-
-import user from '../../../mock-data/user.json'
+import { FormEvent, useState, ChangeEvent, useMemo } from 'react'
+import { CircularLoader } from '../../../components/loader/circular-loader.component'
+import { Success } from '../../../components/success/success.component'
+import { updatePassword } from '../services/api'
 
 const INTIAL_STATE = {
     password: '',
 }
 
 export const SecuritySettings = () => {
-    const { password } = user
     const [formState, setFormState] = useState({
-        password,
+        password: '',
     })
 
-    const passwordRef = useRef(formState.password)
-
     const [canEdit, setCanEdit] = useState(false)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [showSuccess, setShowSuccess] = useState<boolean>(false)
 
     const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        if (passwordRef.current == formState.password) {
-            alert('same password')
-            return
-        }
-        alert('password updated')
-        passwordRef.current = formState.password
-        setCanEdit(false)
+        setIsLoading(true)
+
+        // updating password
+        updatePassword(formState)
+            .then(() => {
+                setIsLoading(false)
+                setShowSuccess(true)
+            })
+            .catch(error => {
+                console.log(error)
+                throw error
+            })
+            .finally(() => {
+                setTimeout(() => {
+                    setShowSuccess(false)
+                    setCanEdit(false)
+                }, 1000)
+            })
     }
 
     const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -36,29 +47,34 @@ export const SecuritySettings = () => {
     const actionButtons = useMemo(() => {
         if (canEdit) {
             return (
-                <div className='flex flex-row items-center justify-start mt-5 gap-8'>
+                <div className='flex flex-row items-center justify-start mt-5 gap-2'>
                     <button
                         type='submit'
                         className='min-w-fit p-2 rounded-md text-white w-24 bg-blue-600'
                     >
                         Save Changes
                     </button>
-                    <button
-                        type='button'
-                        className='min-w-fit p-2 rounded-md text-white w-24 bg-red-600'
-                        onClick={() => {
-                            setCanEdit(!canEdit)
-                            setFormState({ ...formState, password: passwordRef.current })
-                        }}
-                    >
-                        Cancel
-                    </button>
+                    {showSuccess ? (
+                        <Success />
+                    ) : isLoading ? (
+                        <CircularLoader />
+                    ) : (
+                        <button
+                            type='button'
+                            className='min-w-fit p-2 rounded-md text-white w-24 bg-red-600'
+                            onClick={() => {
+                                setCanEdit(!canEdit)
+                            }}
+                        >
+                            Cancel
+                        </button>
+                    )}
                 </div>
             )
         } else {
             return null
         }
-    }, [canEdit, setCanEdit])
+    }, [canEdit, isLoading, showSuccess])
 
     if (!canEdit) {
         changeButton = (
@@ -66,7 +82,7 @@ export const SecuritySettings = () => {
                 type='button'
                 className='min-w-fit rounded text-white text-sm bg-blue-600 px-4 capitalize'
                 onClick={() => {
-                    setCanEdit(prevState => !prevState)
+                    setCanEdit(true)
                     setFormState(INTIAL_STATE)
                 }}
             >
@@ -95,8 +111,9 @@ export const SecuritySettings = () => {
                             type='password'
                             name='password'
                             value={formState.password}
+                            placeholder='••••••'
                             onChange={handleOnChange}
-                            className='p-2 rounded w-3/5'
+                            className='p-2 rounded w-3/5 placeholder:text-white'
                             disabled={!canEdit}
                         />
                         {changeButton}

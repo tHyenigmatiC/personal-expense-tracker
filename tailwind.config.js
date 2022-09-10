@@ -13,6 +13,23 @@ module.exports = {
                 // eslint-disable-next-line quotes
                 '404Image': "url('https://i.imgur.com/yW2W9SC.png')",
             },
+            borderWidth: {
+                3: '3px',
+                5: '5px',
+                6: '6px',
+                11: '11px',
+            },
+            objectPosition: {
+                top: {
+                    1.5: '11px',
+                },
+                left: {
+                    0.5: '2px',
+                },
+            },
+            rotate: {
+                40: '40deg',
+            },
             colors: {
                 bgdark: '#abf2ab',
                 bgmedium: '#c7f6c7',
@@ -59,6 +76,10 @@ module.exports = {
                     '50%': { transform: 'rotateX(0deg)', opacity: 0.5 },
                     '80%': { transform: 'rotateX(0deg)', opacity: 0.8 },
                     '100%': { transform: 'rotateX(90deg)', opacity: 1 },
+                },
+                rotate: {
+                    '0%': { transform: 'rotate(0deg)' },
+                    '100%': { transform: 'rotate(360deg)' },
                 },
             },
         },

@@ -31,6 +31,17 @@ export const addCategoryType = async () => {
     status === 201 ? console.log('Successfull  addCategoryType') : console.log(status)
 }
 
+export const updateUserMetadata = async () => {
+    const { data, error } = await supabase.auth.updateUser({
+        data: {
+            name: 'Kapil Bastola',
+            image: 'https://avatars.githubusercontent.com/u/24877606?v=4',
+        },
+    })
+    if (error) throw error
+    console.log(data)
+}
+
 // const handleFilesUpload = async (e) => {
 // 	const image = e.target.files[0]
 // 	console.log(image)
