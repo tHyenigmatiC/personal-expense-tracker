@@ -1,0 +1,64 @@
+My env file lost in the sea of internet. What will happen?
+
+Background:
+
+I was happy that I had implemented the supabase api to my dashboard page. But then out of nowhere
+I wanted to check .gitignore. So I checked the contents of the file in the terminal. My first 
+reaction on seeing the contents of the file was that I was shocked, nervous, and angry how could I be so stupid 
+to push .env file? My first initial thought was I will create a new repo and delete the old one. But 
+then my goal of seeing green boxes all over my contributions activity table in GitHub would be gone.
+(PS I don't know if the contribution activity gets deleted when deleting a repo. I will update after 
+I have checked it.) Then, I just searched if there was any way I could just delete the file from git
+history completely. Then I came across an article. As I read the whole article, I was happy and 
+curious about whether it would work or not. After I finished all the steps mentioned I was relieved and
+it disappeared completely. Or did it?
+
+First I will show you the steps to (somewhat) completely delete  env file from GitHub if you 
+accidentally happen to push it. 
+
+Steps:
+
+1. add .env to .gitignore and push it to GitHub (Its basically the first step. Haha ;) )
+    NOTE: This doesn't remove the file that is already uploaded. It just tells git to ignore that file from
+           now onwards
+
+
+2. run 'git rm -r --cached .env' command and push changes to remove file.
+    NOTE: This removes the file from github but we can still see the file in our git history.
+
+
+3. To completely remove file from git history run the following command
+    git filter-branch --index-filter "git rm -rf --cached --ignore-unmatch .env" HEAD
+
+    Ignore all the warnings as this command deletes the occurance of the file 
+    in the whole git history. After completion push the changes with 'git push --force'
+
+Hurray! now your .env file is completely deleted from github. 
+Here's the original article for the solution:
+https://daily-dev-tips.com/posts/removing-a-env-file-from-git-history/
+
+But how does it work and what about the topic?
+
+Let's talk about that now. After completing the above process I was delighted and I changed tab to my
+github which was opened before. I refreshed the tab but to my shock I could still see the commit
+history as well as the file and its contents. I kept refreshing like a mad man as Einstein quoted
+"Insanity is doing the same thing over and over again and expecting different results."
+
+Being curious, I went to github's homepage and from there I went to my project folder and checked the
+history. Everything was perfect, there was not a single track of the env file. But what was the before
+where on constant refreshing also I could see the contents of the env file after deleting it? I wanted
+to test again if it happens, so I kept clicking back button on my browser until I visited to the same
+link where I had seen the env file. 
+
+It was there, It was there, again, It was there.
+
+What, Why, How? These questions started to unsettle me. I wanted to find the answers. So I carefully
+checked at the commit id in the link of that haunted page; opened another fresh tab and 
+went to my project and went to the same commit. And there it was. What github actually does is, It
+replaces all the commit id starting from the history where the .env file was uploaded to that latest
+one. You can still visit the commit if you accidentally happen to have the commit id of the commit
+where the env file was pushed....
+
+And that's what happened to my .env file. Lost in the sea of internet. Unknown to anyone.
+Waiting to be only seen if anyone has its address. I often visit the haunted page to see my
+beloved .env file. See you again .env file. I will visit you soon.
