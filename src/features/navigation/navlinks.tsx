@@ -1,4 +1,4 @@
-import { DashboardIcon, AccountIcon, SettingsIcon } from './icons'
+import { DashboardIcon, AccountIcon, SettingsIcon, ListIcon } from './icons'
 
 export interface Navlink {
     text: string
@@ -18,6 +18,11 @@ export const navlinks: Navlink[] = [
         text: 'Dashboard',
         link: '/',
         icon: <DashboardIcon {...getIconProps('Dashboard')} />,
+    },
+    {
+        text: 'Expense List',
+        link: '/expenses',
+        icon: <ListIcon {...getIconProps('Expenses')} />,
     },
     {
         text: 'Account',

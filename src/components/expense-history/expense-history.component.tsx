@@ -21,11 +21,11 @@ interface IExpense {
 export const ExpenseHistory = () => {
     const {
         expense: { data: expenseData },
-        getExpenses,
+        getExpensesPreview,
     } = useExpense()
 
     useEffect(() => {
-        if (expenseData.length === 0) getExpenses()
+        if (expenseData.length === 0) getExpensesPreview()
     }, [expenseData])
 
     let expenseHistory

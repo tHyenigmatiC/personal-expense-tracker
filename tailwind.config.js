@@ -8,6 +8,7 @@ module.exports = {
                 'slide-right': 'slide-right .5s ease-in-out',
                 disappear: 'disappear .5s ease-out forwards',
                 appear: 'appear .5s ease-in backwards',
+                'slide-up': 'slide-up .5s ease-in-out',
             },
             backgroundImage: {
                 // eslint-disable-next-line quotes
@@ -80,6 +81,10 @@ module.exports = {
                 rotate: {
                     '0%': { transform: 'rotate(0deg)' },
                     '100%': { transform: 'rotate(360deg)' },
+                },
+                'slide-up': {
+                    '0%': { transform: 'translateY(100%)' },
+                    '100%': { transform: 'translateY(0%)' },
                 },
             },
         },

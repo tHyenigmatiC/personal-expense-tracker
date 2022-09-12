@@ -54,7 +54,8 @@ interface ICategoryQuery {
 
 interface IContext {
     expense: IExpenseData
-    getExpenses: () => void
+    getExpensesPreview: () => void
+    getAllExpense: () => void
     getReport: (query: IReportQuery) => void
     getExpenseWithCategories: (query: ICategoryQuery) => void
 }
@@ -65,7 +66,8 @@ const INTIAL_VALUE: IContext = {
         report: null,
         categories: null,
     },
-    getExpenses: () => undefined,
+    getExpensesPreview: () => undefined,
+    getAllExpense: () => undefined,
     getReport: () => undefined,
     getExpenseWithCategories: () => undefined,
 }
@@ -84,9 +86,23 @@ const ExpenseProvider = ({ children }: IChildren) => {
     const { session } = useAuth()
     const hasSession = !!session?.user
 
-    const getExpenses = () => {
+    const getExpensesPreview = () => {
         if (!hasSession) return
-        getAllExpenseForUser(session.user.id)
+        getAllExpenseForUser({ user_id: session.user.id, limit: 4 })
+            .then(response => {
+                const { data, error } = response
+
+                if (error) throw error
+                setExpenseData(data)
+            })
+            .catch(error => {
+                throw error
+            })
+    }
+
+    const getAllExpense = () => {
+        if (!hasSession) return
+        getAllExpenseForUser({ user_id: session.user.id })
             .then(response => {
                 const { data, error } = response
 
@@ -136,7 +152,8 @@ const ExpenseProvider = ({ children }: IChildren) => {
             report,
             categories,
         },
-        getExpenses,
+        getExpensesPreview,
+        getAllExpense,
         getReport,
         getExpenseWithCategories,
     }

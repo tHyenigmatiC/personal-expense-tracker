@@ -5,6 +5,10 @@ interface IUser {
     user_id: string
 }
 
+interface IExpenseQuery extends IUser {
+    limit?: number
+}
+
 interface IReportQuery extends IUser {
     report_type: string
 }
@@ -15,12 +19,20 @@ interface ICategoryQuery extends IUser {
     month?: string
 }
 
-export const getAllExpenseForUser = async (user_id: string) => {
+interface IExpenseData {
+    amount: number
+    remaining: number
+    created_at: string
+    memo: string
+    user_id: string
+}
+
+export const getAllExpenseForUser = async ({ user_id, limit = 0 }: IExpenseQuery) => {
     const response = await supabase
         .from('expenses')
         .select('created_at, amount, remaining, memo ')
         .eq('user_id', user_id)
-        .limit(4)
+        .limit(limit)
 
     return response
 }
@@ -44,4 +56,12 @@ export const getExpenseCategoriesWithData = async ({ user_id, type, value }: ICa
         .eq(type, value)
         .single()
     return response
+}
+
+export const addMonthlyReport = async (expenseData: IExpenseData) => {
+    const { data, error, status } = await supabase.from('expenses').insert(expenseData)
+
+    if (data) console.log(data)
+    if (error) console.log(error)
+    console.log(status)
 }

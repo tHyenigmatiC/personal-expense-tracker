@@ -3,6 +3,7 @@ import { Route, DefaultGenerics } from '@tanstack/react-location'
 import Dashboard from '../features/dashboard'
 import Account from '../features/account'
 import Settings from '../features/settings'
+import Expenses from '../features/expenses'
 
 export const routes: Route<DefaultGenerics>[] = [
     {
@@ -23,6 +24,11 @@ export const routes: Route<DefaultGenerics>[] = [
     {
         path: '/settings',
         element: <Settings />,
+        loader: () => Promise.resolve({ protected: true }),
+    },
+    {
+        path: '/expenses',
+        element: <Expenses />,
         loader: () => Promise.resolve({ protected: true }),
     },
 ]
