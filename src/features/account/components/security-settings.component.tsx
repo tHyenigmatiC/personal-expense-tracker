@@ -27,7 +27,6 @@ export const SecuritySettings = () => {
                 setShowSuccess(true)
             })
             .catch(error => {
-                console.log(error)
                 throw error
             })
             .finally(() => {

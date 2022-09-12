@@ -34,7 +34,7 @@ interface ICategoryExpense {
 
 interface IExpenseData {
     data: IExpense[] | []
-    report: IReportWithImage | null | object
+    report: IReportWithImage | null
     categories: ICategoryExpense | null | object
 }
 
@@ -94,7 +94,6 @@ const ExpenseProvider = ({ children }: IChildren) => {
                 setExpenseData(data)
             })
             .catch(error => {
-                console.log(error)
                 throw error
             })
     }
@@ -113,7 +112,6 @@ const ExpenseProvider = ({ children }: IChildren) => {
                 })
             })
             .catch(error => {
-                console.log(error)
                 throw error
             })
     }
@@ -128,7 +126,6 @@ const ExpenseProvider = ({ children }: IChildren) => {
                 setCategories({ ...data })
             })
             .catch(error => {
-                console.log(error)
                 throw error
             })
     }

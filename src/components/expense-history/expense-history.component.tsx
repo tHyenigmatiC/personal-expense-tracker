@@ -61,12 +61,12 @@ export const ExpenseHistory = () => {
     }
 
     return (
-        <div className='flex flex-col w-full mb-3 mt-10 px-6'>
+        <div className='flex flex-col w-full mb-3 mt-10 px-2'>
             <SectionHeader
-                title='Expenditure History'
-                detail='Last 4 expenses'
+                title='History'
+                detail='last 5 expenses'
             />
-            <div className='grid grid-cols-2 gap-x-8 gap-y-2'>{expenseHistory}</div>
+            <div className='mt-2'>{expenseHistory}</div>
         </div>
     )
 }

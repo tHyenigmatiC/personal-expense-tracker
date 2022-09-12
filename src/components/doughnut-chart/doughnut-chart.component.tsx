@@ -4,31 +4,68 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 ChartJS.register(ArcElement, Tooltip, Legend)
 
 interface IObjectKeys {
-    [key: string]: string
+    title: string
+    data: object
 }
 
-const getChartData = ({ ...data }: IObjectKeys) => {
-    const labels = Object.keys(data)
-    const dataset = Object.values(data)
+const getChartData = ({ title, data }: IObjectKeys) => {
+    const labels = Object.keys({ ...data })
+    const dataset = Object.values({ ...data })
     return {
-        datasetIdKey: 'expense',
+        datasetIdKey: title,
         labels: labels,
         datasets: [
             {
                 label: 'Expense Tracker',
                 data: dataset,
-                backgroundColor: ['#ff2400', '#50c878'],
-                boderWidth: 6,
+                backgroundColor: [
+                    '#ff2400',
+                    '#50c878',
+                    '#FF6633',
+                    '#FFB399',
+                    '#FF33FF',
+                    '#FFFF99',
+                    '#00B3E6',
+                    '#809900',
+                ],
+                borderColor: '#c7f6c7',
+                boderWidth: 0,
+                hoverOffset: 4,
             },
         ],
     }
 }
 
-export const DoughnutChart = ({ ...data }: IObjectKeys) => {
+export const DoughnutChart = ({ title, ...data }: IObjectKeys) => {
     return (
-        <div className='flex flex-col items-center w-56'>
-            <p className='text-lg font-medium text-tealdark'>Montly Report</p>
-            <Doughnut data={getChartData({ ...data })} />
+        <div className='flex flex-col items-start h-48 w-72'>
+            <p className='text-lg font-medium text-tealdark'>{title}</p>
+            <Doughnut
+                data={getChartData({ title, ...data })}
+                options={{
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '60%',
+                    plugins: {
+                        tooltip: {
+                            animation: {
+                                easing: 'easeInCubic',
+                            },
+                        },
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                font: {
+                                    style: 'italic',
+                                    weight: 'bold',
+                                    size: 12,
+                                },
+                                color: '#000000',
+                            },
+                        },
+                    },
+                }}
+            />
         </div>
     )
 }

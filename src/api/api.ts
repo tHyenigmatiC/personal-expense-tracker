@@ -43,6 +43,5 @@ export const getExpenseCategoriesWithData = async ({ user_id, type, value }: ICa
         .eq('user_id', user_id)
         .eq(type, value)
         .single()
-    console.log(response)
     return response
 }

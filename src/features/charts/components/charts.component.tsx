@@ -2,13 +2,16 @@ import { memo, useEffect } from 'react'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
-import { ColumnContainer } from '../../../Layouts/ColumnContainer'
 import { DoughnutChart } from '../../../components/doughnut-chart/doughnut-chart.component'
-import EventCalendar from '../../calendar'
 
 import { ExpenseProvider, useExpense } from '../../../context/expense/useExpense'
 
-const cleanExpenseDataForChart = ({ ...data }) => {
+interface IChart {
+    type: string
+    title: string
+}
+
+const cleanDataforReport = ({ ...data }) => {
     const { expenditure, remaining } = data
     return {
         spent: expenditure,
@@ -16,23 +19,42 @@ const cleanExpenseDataForChart = ({ ...data }) => {
     }
 }
 
-const CharContainer = () => {
-    const { getReport, expense } = useExpense()
+const CharContainer = ({ type, title }: IChart) => {
+    const { getExpenseWithCategories, getReport, expense } = useExpense()
 
-    const data = expense.report
+    // filter the data according to the type provided
+    let data = expense[type as keyof typeof expense]
 
     const currentMonth = new Date().toLocaleDateString('default', { month: 'long' })
 
     useEffect(() => {
-        if (!data)
+        if (!data) {
+            // load data based on the type provided
             // eslint-disable-next-line camelcase
-            getReport({ report_type: currentMonth })
+            type === 'report' ? getReport({ report_type: currentMonth }) : null
+
+            type === 'categories'
+                ? getExpenseWithCategories({ type: 'month', value: currentMonth })
+                : null
+        }
     }, [data])
 
     let chartData
 
     if (data) {
-        chartData = <DoughnutChart {...cleanExpenseDataForChart({ ...expense.report })} />
+        if (type === 'report') {
+            data = cleanDataforReport(data)
+        }
+
+        if (type === 'categories') {
+            data 
+        }
+        chartData = (
+            <DoughnutChart
+                title={title}
+                data={data}
+            />
+        )
     } else {
         chartData = (
             <SkeletonTheme
@@ -51,14 +73,16 @@ const CharContainer = () => {
     return <>{chartData}</>
 }
 
-export const nCharts = () => {
+export const nCharts = ({ type, title }: IChart) => {
     return (
-        <ColumnContainer>
+        <div>
             <ExpenseProvider>
-                <CharContainer />
+                <CharContainer
+                    type={type}
+                    title={title}
+                />
             </ExpenseProvider>
-            <EventCalendar />
-        </ColumnContainer>
+        </div>
     )
 }
 

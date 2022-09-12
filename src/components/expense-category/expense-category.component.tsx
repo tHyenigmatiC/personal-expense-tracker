@@ -25,7 +25,6 @@ export const ExpenseCategory = () => {
     if (data) {
         expenseCategory = Object.keys({ ...data }).map(category => {
             const cKey = category as keyof typeof data
-            if (data[cKey] < 1) return
             return (
                 <CategoryCard
                     type={category}
@@ -55,7 +54,7 @@ export const ExpenseCategory = () => {
         <div className='flex flex-col w-full mb-3 mt-4 pl-6'>
             <SectionHeader
                 title='Expenditure By Categories'
-                detail='sorted by highest'
+                detail='this month'
             />
             <div className='grid grid-cols-horizontal-overflow auto-cols-horizontal-overflow grid-flow-col overflow-x-auto p-2 gap-4 w-full'>
                 {expenseCategory}

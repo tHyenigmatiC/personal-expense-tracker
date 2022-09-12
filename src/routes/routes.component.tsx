@@ -5,6 +5,7 @@ import Charts from '../features/charts'
 import { useAuth } from '../features/authentication/context/useAuth'
 import Loader from '../components/loader/loader.component'
 import { Session } from '@supabase/supabase-js'
+import { ExpenseInfo } from '../components/expense-info/expense-info.component'
 
 interface IPageProps {
     matches: RouteMatch<DefaultGenerics>[]
@@ -64,7 +65,7 @@ const FilteredPage = ({ matches }: IPageProps) => {
             <div className='flex items-center justify-between h-screen min-h-screen'>
                 <Navigation />
                 <Outlet />
-                <Charts />
+                <ExpenseInfo />
             </div>
         )
     ) : (

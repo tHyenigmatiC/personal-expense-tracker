@@ -44,7 +44,6 @@ export const ProfileEdit = ({ ...user }: UserProps) => {
             })
             .catch(error => {
                 throw error
-                console.log(error)
             })
             .finally(() => {
                 setTimeout(() => {
