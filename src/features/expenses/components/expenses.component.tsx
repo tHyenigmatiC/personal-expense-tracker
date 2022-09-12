@@ -1,12 +1,25 @@
+/* eslint-disable camelcase */
 import { useEffect } from 'react'
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
+
+import { HistoryCard } from '../../../components/expense-history/history-card.component'
 import { ExpenseProvider, useExpense } from '../../../context/expense/useExpense'
 import { PageContainer } from '../../../Layouts/PageContainer'
+
+interface IExpense {
+    created_at: string | number | Date
+    amount: string | null
+    memo: string | null
+    remaining: string | null
+    category?: string | null
+}
 
 export const Expenses = () => {
     return (
         <PageContainer>
             <ExpenseProvider>
-                <div></div>
+                <ExpenseList />
             </ExpenseProvider>
         </PageContainer>
     )
@@ -23,12 +36,50 @@ const ExpenseList = () => {
 
     let expenseList
 
-    if(hasData) {
+    if (hasData) {
         expenseList = (
-            
+            <div>
+                {expense.data.map((exp: IExpense) => {
+                    const { amount, created_at, memo, remaining } = exp
+                    const props = {
+                        className:
+                            'flex items-start justify-between shadow rounded-xl p-2 my-4 bg-white',
+                    }
+                    return (
+                        <HistoryCard
+                            key={remaining}
+                            amount={amount}
+                            created_at={created_at}
+                            memo={memo}
+                            remaining={remaining}
+                            {...props}
+                        />
+                    )
+                })}
+            </div>
         )
     } else {
-        
+        expenseList = (
+            <SkeletonTheme
+                baseColor='#abf2ab'
+                highlightColor='#c7f6c7'
+            >
+                {[1, 2, 3, 4, 5, 6].map(index => (
+                    <Skeleton
+                        count={1}
+                        height={70}
+                        width={600}
+                        key={index}
+                        className='bg-gray-50 my-2 rounded'
+                    />
+                ))}
+            </SkeletonTheme>
+        )
     }
-    return <div></div>
+    return (
+        <div className='w-full px-20'>
+            <p className='text-orange-600 my-4 text-2xl'>Expense List</p>
+            {expenseList}
+        </div>
+    )
 }

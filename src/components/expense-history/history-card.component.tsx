@@ -9,11 +9,14 @@ interface IExpense {
     category?: string | null
 }
 
-export const HistoryCard = ({ amount, created_at, memo, remaining }: IExpense) => {
+export const HistoryCard = ({ amount, created_at, memo, remaining, ...otherProps }: IExpense) => {
     const formattedDate = format(new Date(created_at), 'LLL dd hh:mm a')
 
     return (
-        <div className='flex items-start justify-between shadow rounded-xl p-2 my-1 bg-white'>
+        <div
+            className='flex items-start justify-between shadow rounded-xl p-2 my-1 bg-white'
+            {...otherProps}
+        >
             <div className='flex flex-col items-start'>
                 <p className='my-1 text-xs text-tealdark'>{formattedDate}</p>
                 <p className='my-1 font-medium text-gray-600 text-sm'>{memo}</p>

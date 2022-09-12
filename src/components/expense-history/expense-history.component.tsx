@@ -51,9 +51,9 @@ export const ExpenseHistory = () => {
                     <Skeleton
                         count={1}
                         height={70}
-                        width={350}
+                        width={275}
                         key={index}
-                        className='bg-gray-50'
+                        className='bg-gray-50 my-1'
                     />
                 ))}
             </SkeletonTheme>

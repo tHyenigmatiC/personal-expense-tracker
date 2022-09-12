@@ -101,7 +101,7 @@ export const ExpenseAddForm = ({ setShowAddForm }: IAddButton) => {
 
     if (hasData) {
         expenseForm = (
-            <div className='px-3 text-white animate-slide-up'>
+            <div className='text-white animate-slide-up w-11/12'>
                 <p className='text-orange-600 text-lg text-center mb-4 font-semibold'>
                     Add Expense
                 </p>

@@ -10,7 +10,7 @@ interface IAddButton {
 }
 
 export const ExpenseInfo = () => {
-    const [showAddForm, setShowAddForm] = useState<boolean>(true)
+    const [showAddForm, setShowAddForm] = useState<boolean>(false)
 
     const handleAddClick = () => {
         setShowAddForm(!showAddForm)

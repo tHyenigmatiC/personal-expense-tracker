@@ -27,7 +27,7 @@ interface IExpenseData {
     user_id: string
 }
 
-export const getAllExpenseForUser = async ({ user_id, limit = 0 }: IExpenseQuery) => {
+export const getAllExpenseForUser = async ({ user_id, limit = 50 }: IExpenseQuery) => {
     const response = await supabase
         .from('expenses')
         .select('created_at, amount, remaining, memo ')
