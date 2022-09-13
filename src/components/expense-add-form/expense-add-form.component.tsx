@@ -94,20 +94,34 @@ export const ExpenseAddForm = ({ setShowAddForm }: IAddButton) => {
         e.preventDefault()
         if (!canSubmit) return
         // eslint-disable-next-line camelcase
-        if (session?.user) addMonthlyReport({ ...formState, user_id: session.user.id })
+        if (session?.user) {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const { remaining, ...data } = {
+                ...formState,
+            }
+
+            addMonthlyReport({ ...data })
+                .then(() => {
+                    setTimeout(() => {
+                        setShowAddForm(false)
+                    }, 1000)
+                })
+                .catch(error => {
+                    console.log(error)
+                    throw error
+                })
+        }
     }
 
     let expenseForm
 
     if (hasData) {
         expenseForm = (
-            <div className='text-white animate-slide-up w-11/12'>
-                <p className='text-orange-600 text-lg text-center mb-4 font-semibold'>
-                    Add Expense
-                </p>
+            <div className='text-white w-11/12'>
+                <p className='text-teal-200 text-lg text-center mb-4 font-semibold'>Add Expense</p>
                 <form
                     id='add-new-expense'
-                    className='flex flex-col px-3 py-2 text-white items-start justify-center w-95% bg-teal-600 rounded-md shadow-md'
+                    className='flex flex-col px-3 py-2 text-tealdark items-start justify-center w-95% bg-bglight rounded shadow-md'
                     onSubmit={handleSubmit}
                 >
                     <div className='my-2 flex flex-col w-full'>
@@ -164,7 +178,7 @@ export const ExpenseAddForm = ({ setShowAddForm }: IAddButton) => {
                             value={formState.amount}
                             placeholder='Enter amount'
                             min={0}
-                            className='p-2 text-orange-600 my-2 border-2 invalid:border-red-400 border-gray-200 rounded focus:outline-none focus:border-orange-400'
+                            className='p-2 text-orange-600 w-full my-2 border-2 invalid:border-red-400 border-gray-200 rounded focus:outline-none focus:border-orange-400'
                         />
                     </div>
                     <div className='my-2'>
@@ -175,23 +189,23 @@ export const ExpenseAddForm = ({ setShowAddForm }: IAddButton) => {
                             value={formState.remaining}
                             disabled
                             type='number'
-                            className='p-2 text-orange disabled:border disabled:border-teal-200 my-2 rounded disabled:bg-orange-100 text-orange-600'
+                            className='p-2 text-orange disabled:border-2 disabled:border-orange-400 disabled:bg-gray-300 text-tealdark w-full my-2 border-2 invalid:border-red-400 border-gray-200 rounded'
                         />
                     </div>
                 </form>
-                <div className='my-4 bg-white flex items-center justify-around w-full'>
+                <div className='my-4 flex items-center justify-around w-full'>
                     <button
                         type='submit'
                         form='add-new-expense'
-                        className='bg-green-600 rounded shadow-md px-6 py-3 disabled:bg-slate-500'
+                        className='bg-green-600 rounded shadow-lg px-10 py-3 disabled:bg-slate-500'
                         disabled={!canSubmit}
                     >
-                        Submit
+                        Add
                     </button>
                     <button
                         type='button'
                         onClick={() => setShowAddForm(false)}
-                        className='text-red-600 font-semibold'
+                        className='bg-red-500 px-6 py-3 rounded'
                     >
                         Cancel
                     </button>
@@ -201,12 +215,12 @@ export const ExpenseAddForm = ({ setShowAddForm }: IAddButton) => {
     } else {
         expenseForm = (
             <SkeletonTheme
-                baseColor='#fcb377'
-                highlightColor='#FB923C'
+                baseColor='#f2f8f8'
+                highlightColor='#fff'
             >
                 <Skeleton
                     count={1}
-                    height={400}
+                    height={500}
                     width={275}
                     className='bg-gray-50'
                 />

@@ -66,7 +66,7 @@ export const ExpenseHistory = () => {
                 title='History'
                 detail='last 5 expenses'
             />
-            <div className='mt-2'>{expenseHistory}</div>
+            <div className='mt-0'>{expenseHistory}</div>
         </div>
     )
 }

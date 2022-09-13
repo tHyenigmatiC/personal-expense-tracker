@@ -2,9 +2,10 @@
 export interface AuxProps {
     title?: string
     children: React.ReactNode
+    classprops?: string
 }
 
-export const PageContainer = ({ title, children }: AuxProps) => {
+export const PageContainer = ({ title, children, classprops }: AuxProps) => {
     let pageTitle
 
     if (title) {
@@ -18,10 +19,16 @@ export const PageContainer = ({ title, children }: AuxProps) => {
         )
     }
     return (
-        <div className='relative flex flex-col items-center w-3/5 h-screen min-h-screen pt-8 pb-6 bg-teallight overflow-y-scroll'>
+        <div {...getContainerClassProps(classprops)}>
             {pageTitle}
             {children}
             {/* <FooterNav /> */}
         </div>
     )
+}
+
+const getContainerClassProps = (classprops = 'overflow-y-hidden') => {
+    return {
+        className: `relative flex flex-col items-center w-3/5 h-screen min-h-screen pt-8 pb-6 bg-white border-slate-300 border-r ${classprops}`,
+    }
 }

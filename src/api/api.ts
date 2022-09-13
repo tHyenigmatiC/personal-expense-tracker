@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import { supabase } from '../db/supabaseClient'
+import { formatExpenseForPGSQLInsertions } from './utils'
 
 interface IUser {
     user_id: string
@@ -21,10 +22,11 @@ interface ICategoryQuery extends IUser {
 
 interface IExpenseData {
     amount: number
-    remaining: number
-    created_at: string
+    remaining?: number
+    created_at?: string
     memo: string
-    user_id: string
+    user_id?: string
+    category: string
 }
 
 export const getAllExpenseForUser = async ({ user_id, limit = 50 }: IExpenseQuery) => {
@@ -32,6 +34,7 @@ export const getAllExpenseForUser = async ({ user_id, limit = 50 }: IExpenseQuer
         .from('expenses')
         .select('created_at, amount, remaining, memo ')
         .eq('user_id', user_id)
+        .order('created_at', { ascending: false })
         .limit(limit)
 
     return response
@@ -59,6 +62,16 @@ export const getExpenseCategoriesWithData = async ({ user_id, type, value }: ICa
 }
 
 export const addMonthlyReport = async (expenseData: IExpenseData) => {
+    console.log(expenseData)
+    const { data } = await supabase.rpc(
+        'insert_new_expense',
+        formatExpenseForPGSQLInsertions(expenseData),
+    )
+
+    console.log(data)
+}
+
+export const addMonthlyReportOld = async (expenseData: IExpenseData) => {
     const { data, error, status } = await supabase.from('expenses').insert(expenseData)
 
     if (data) console.log(data)

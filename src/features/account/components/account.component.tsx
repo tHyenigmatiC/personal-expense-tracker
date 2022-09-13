@@ -15,7 +15,7 @@ import { useAuth } from '../../authentication/context/useAuth'
 export const Account = () => {
     const { session } = useAuth()
 
-    let userDetails, profileEditField
+    let userDetails, profileEditField, expenseHistory
 
     if (session && session.user && session.user.email) {
         const user = {
@@ -39,6 +39,7 @@ export const Account = () => {
         )
 
         profileEditField = <ProfileEdit {...user} />
+        expenseHistory = <ExpenseHistoryData userId={session.user.id} />
     } else {
         userDetails = (
             <SkeletonTheme
@@ -69,7 +70,7 @@ export const Account = () => {
                 highlightColor='#c7f6c7'
             >
                 <Skeleton
-                    count={1}
+                    count={2}
                     height={150}
                     width={300}
                 />
@@ -78,14 +79,12 @@ export const Account = () => {
     }
 
     return (
-        <PageContainer>
+        <PageContainer classprops='y-overflow-scroll'>
             <div className='w-full px-32'>
                 {userDetails}
                 {profileEditField}
                 <SecuritySettings />
-                <DateRangeProvider>
-                    <ExpenseHistoryData />
-                </DateRangeProvider>
+                <DateRangeProvider>{expenseHistory}</DateRangeProvider>
             </div>
         </PageContainer>
     )

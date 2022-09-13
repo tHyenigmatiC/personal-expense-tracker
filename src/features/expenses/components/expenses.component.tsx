@@ -17,7 +17,7 @@ interface IExpense {
 
 export const Expenses = () => {
     return (
-        <PageContainer>
+        <PageContainer classprops='overflow-y-scroll'>
             <ExpenseProvider>
                 <ExpenseList />
             </ExpenseProvider>
@@ -43,7 +43,7 @@ const ExpenseList = () => {
                     const { amount, created_at, memo, remaining } = exp
                     const props = {
                         className:
-                            'flex items-start justify-between shadow rounded-xl p-2 my-4 bg-white',
+                            'flex items-start justify-between shadow rounded-xl py-2 px-8 my-4 bg-bglight',
                     }
                     return (
                         <HistoryCard
@@ -78,7 +78,7 @@ const ExpenseList = () => {
     }
     return (
         <div className='w-full px-20'>
-            <p className='text-orange-600 my-4 text-2xl'>Expense List</p>
+            <p className='text-orange-600 my-4 font-semibold text-2xl'>Expense History</p>
             {expenseList}
         </div>
     )

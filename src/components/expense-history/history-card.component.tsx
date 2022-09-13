@@ -14,7 +14,7 @@ export const HistoryCard = ({ amount, created_at, memo, remaining, ...otherProps
 
     return (
         <div
-            className='flex items-start justify-between shadow rounded-xl p-2 my-1 bg-white'
+            className='flex items-start justify-between shadow rounded-xl p-2 my-3 bg-bglight'
             {...otherProps}
         >
             <div className='flex flex-col items-start'>

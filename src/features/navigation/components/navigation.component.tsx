@@ -33,10 +33,12 @@ export const nNavigation = () => {
     )
     return (
         <SideNav>
-            <TextLogo
-                size='small'
-                name
-            />
+            <div className='bg-bglight w-full border-r border-slate-200 py-8'>
+                <TextLogo
+                    size='medium'
+                    name
+                />
+            </div>
             <User />
             {links}
         </SideNav>

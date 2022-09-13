@@ -10,6 +10,7 @@ export const DateRangePicker = () => {
     const { fromDate, toDate } = useDateRange()
     const [startDate, updateStartDate] = fromDate
     const [endDate, updateEndDate] = toDate
+    const today = new Date()
     return (
         <div className='flex items-center my-2'>
             <span className='mr-2 text-white'>From:</span>
@@ -19,6 +20,7 @@ export const DateRangePicker = () => {
                 selectsStart
                 startDate={startDate}
                 endDate={endDate}
+                maxDate={today}
                 className='py-2 px-1 w-full'
             />
             <span className='ml-4 mr-2 text-white'>To:</span>
@@ -28,7 +30,7 @@ export const DateRangePicker = () => {
                 selectsEnd
                 startDate={startDate}
                 endDate={endDate}
-                minDate={startDate}
+                maxDate={today}
                 className='py-2 px-1 w-full'
             />
         </div>

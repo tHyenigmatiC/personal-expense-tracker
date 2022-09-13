@@ -7,6 +7,8 @@ import { ExpenseCard } from '../expense-card/expense-card.compnent'
 
 import { useExpense } from '../../context/expense/useExpense'
 
+import { getIconProps, BankNotesIcon } from '../../assets/heroicons'
+
 export const ExpenseReport = () => {
     const { getReport, expense } = useExpense()
 
@@ -33,7 +35,7 @@ export const ExpenseReport = () => {
                 <ExpenseCard
                     type={key}
                     amount={amount ?? '0'}
-                    icon={image}
+                    icon={<BankNotesIcon {...getIconProps('Bank Note')} />}
                     key={key}
                 />
             )
@@ -58,8 +60,8 @@ export const ExpenseReport = () => {
 
     // const types = Object.keys(otherData)
     return (
-        <div className='flex flex-col w-full px-6'>
-            <p className='text-2xl text-start text-shadedark'>{currentMonth} 2022</p>
+        <div className='flex flex-col w-full px-9'>
+            <p className='text-2xl text-start text-tealdark'>{currentMonth} 2022</p>
             <div className='grid w-10/12 grid-cols-3 gap-8 mt-4'>{reportData}</div>
         </div>
     )

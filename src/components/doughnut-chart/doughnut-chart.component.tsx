@@ -21,15 +21,15 @@ const getChartData = ({ title, data }: IObjectKeys) => {
                 backgroundColor: [
                     '#ff2400',
                     '#50c878',
-                    '#FF6633',
+                    '#006666',
                     '#FFB399',
                     '#FF33FF',
                     '#FFFF99',
                     '#00B3E6',
                     '#809900',
                 ],
-                borderColor: '#c7f6c7',
-                boderWidth: 0,
+                borderColor: '#F97316',
+                boderWidth: 0.5,
                 hoverOffset: 4,
             },
         ],
@@ -39,7 +39,7 @@ const getChartData = ({ title, data }: IObjectKeys) => {
 export const DoughnutChart = ({ title, ...data }: IObjectKeys) => {
     return (
         <div className='flex flex-col items-start h-48 w-72'>
-            <p className='text-lg font-medium text-tealdark'>{title}</p>
+            <p className='text-lg font-medium text-orange-900'>{title}</p>
             <Doughnut
                 data={getChartData({ title, ...data })}
                 options={{

@@ -17,25 +17,25 @@ export const ExpenseInfo = () => {
     }
 
     return (
-        <ColumnContainer>
-            <ExpenseProvider>
-                {showAddForm ? (
+        <ExpenseProvider>
+            {showAddForm ? (
+                <div className='flex flex-col items-center justify-start w-1/4 h-screen bg-tealdark min-hs-screen py-6 px-2'>
                     <ExpenseAddForm setShowAddForm={setShowAddForm} />
-                ) : (
-                    <>
-                        <HighestExpense />
-                        <ExpenseHistory />
-                        <AddButton handleAddClick={handleAddClick} />
-                    </>
-                )}
-            </ExpenseProvider>
-        </ColumnContainer>
+                </div>
+            ) : (
+                <ColumnContainer>
+                    <HighestExpense />
+                    <ExpenseHistory />
+                    <AddButton handleAddClick={handleAddClick} />
+                </ColumnContainer>
+            )}
+        </ExpenseProvider>
     )
 }
 
 const AddButton = ({ handleAddClick }: IAddButton) => {
     return (
-        <div className='my-4 px-6'>
+        <div className='px-6'>
             <button
                 className='bg-orange-600 font-semibold text-white w-36 py-3 rounded-md shadow-xl'
                 onClick={handleAddClick}
