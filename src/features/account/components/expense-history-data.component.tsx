@@ -15,9 +15,6 @@ interface IExpense {
     amount: string
     remaining: string
 }
-interface IProps {
-    userId: string
-}
 
 interface IData {
     data: IExpense[]
