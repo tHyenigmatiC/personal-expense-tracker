@@ -101,3 +101,79 @@ export const ExpenseHistoryData = ({ userId }: { userId: string }) => {
         </div>
     )
 }
+
+const PrintHistory = forwardRef(({ data }: IData, ref: IRef) => {
+    const { session } = useAuth()
+    const today = new Date().toISOString().split('T')[0]
+    return (
+        <div
+            ref={ref}
+            className='flex flex-col items-center my-4 '
+        >
+            <TextLogo />
+            <div className='flex items-center justify-between w-5/6 px-6 py-2 mx-auto my-2'>
+                <p className='text-lg font-semibold text-orange-600'>
+                    <span className='text-gray-600 font-normal'>Name: </span>{' '}
+                    {session?.user ? session.user.user_metadata.name : null}
+                </p>
+                <p className='text-lg font-semibold text-orange-600'>
+                    <span className='text-gray-600 font-normal'>Date:</span> {today}
+                </p>
+            </div>
+            <DataTable data={data} />
+        </div>
+    )
+})
+PrintHistory.displayName = 'PrintHistory'
+
+const DataTable = ({ data }: IData) => {
+    const columnHeader = Object.keys(data[0])
+    return (
+        <table className='table-auto border-2 border-tealdark w-5/6 mx-auto'>
+            <thead className='text-center text-teallight mx-auto w-full bg-tealdark border-b border-slate-400'>
+                <tr>
+                    {columnHeader.map(header => (
+                        <th
+                            className='border-r border-slate-400 p-6'
+                            key={header}
+                        >
+                            {header === 'created_at' ? 'DATE' : header.toUpperCase()}
+                        </th>
+                    ))}
+                </tr>
+            </thead>
+            <tbody className='bg-orange-50 text-teal-800'>
+                {data.map(({ memo, created_at, amount, remaining }: IExpense, index) => (
+                    <tr
+                        key={index}
+                        className='my-2 border-r border-slate-400 text-center'
+                    >
+                        <td className='p-4 border-r text-lg border-b border-slate-400 text-center'>
+                            {new Date(created_at).toISOString().split('T')[0]}
+                        </td>
+                        <td className='p-4 border-r text-lg border-b border-slate-400 text-center'>
+                            {memo}
+                        </td>
+                        <td className='p-4 border-r text-lg border-b border-slate-400 text-center text-red-600'>
+                            Rs {amount}
+                        </td>
+                        <td className='p-4 border-r text-lg border-b border-slate-400 text-center text-green-600'>
+                            Rs {remaining}
+                        </td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+    )
+}
+
+const TextLogo = () => {
+    return (
+        <div className='text-center my-6'>
+            <p className={'font-bold drop-shadow-lg text-orange-600 text-4xl'}>
+                P<span className='text-6xl'>€</span>T
+            </p>
+            <p className={'text-orange-600 font-semibold text-lg'}>Personal Expense Tracker</p>
+        </div>
+    )
+}
