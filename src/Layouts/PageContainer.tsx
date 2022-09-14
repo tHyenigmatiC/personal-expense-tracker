@@ -29,6 +29,6 @@ export const PageContainer = ({ title, children, classprops }: AuxProps) => {
 
 const getContainerClassProps = (classprops = 'overflow-y-hidden') => {
     return {
-        className: `relative flex flex-col items-center w-3/5 h-screen min-h-screen pt-8 pb-6 bg-white border-slate-300 border-r ${classprops}`,
+        className: `relative flex flex-col items-center w-3/5 h-screen min-h-screen pt-8 pb-6 bg-white border-slate-300 border-r dark:bg-bgDark ${classprops}`,
     }
 }

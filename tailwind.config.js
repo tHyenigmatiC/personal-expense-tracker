@@ -43,6 +43,11 @@ module.exports = {
                 cardbg: '#fefefe',
                 'btn-primary': '#50c878',
                 bannercolor: '#9F6C66',
+                bgDark: '#15202B',
+                cardDark: '#192734',
+                hoverDark: '#22303C',
+                textDark1: '#FFFFFF',
+                textDark2: '#8899A6',
             },
             height: {
                 '40vh': '40vh',
@@ -90,4 +95,5 @@ module.exports = {
         },
     },
     plugins: [],
+    darkMode: 'class',
 }

@@ -1,7 +1,6 @@
 import { Outlet, Navigate, useRouter, RouteMatch, DefaultGenerics } from '@tanstack/react-location'
 
 import Navigation from '../features/navigation'
-import Charts from '../features/charts'
 import { useAuth } from '../features/authentication/context/useAuth'
 import Loader from '../components/loader/loader.component'
 import { Session } from '@supabase/supabase-js'

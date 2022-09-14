@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { CircularLoader } from '../../../components/loader/circular-loader.component'
 import { supabase } from '../../../db/supabaseClient'
 import { PageContainer } from '../../../Layouts/PageContainer'
 import { AppearanceSettings } from './appearance.compnent'
@@ -6,7 +7,6 @@ import { MiscellaneousSettings } from './miscellaneous.component'
 
 export const Settings = () => {
     const [logginOut, setLogginOut] = useState<boolean>(false)
-    const [showMessage, setShowMessage] = useState<boolean>(false)
 
     /* 
     currenlty when the user click log out
@@ -26,21 +26,19 @@ export const Settings = () => {
         }
         if (logginOut) {
             document.addEventListener('click', handler, true)
-            document.body.requestPointerLock()
         }
 
         return () => {
             document.removeEventListener('click', handler, true)
-            document.exitPointerLock()
         }
     }, [logginOut])
 
-    const handleLogOut = () => {
+    const handleLogOut = async () => {
         setLogginOut(true)
-        supabase.auth.signOut()
+        await supabase.auth.signOut()
         setTimeout(() => {
-            setShowMessage(true)
-        }, 400)
+            setLogginOut(false)
+        }, 200)
     }
 
     return (
@@ -48,21 +46,17 @@ export const Settings = () => {
             <div className='w-full px-32'>
                 <AppearanceSettings />
                 <MiscellaneousSettings />
-                {logginOut && showMessage ? (
-                    <p className='bg-red-600 text-xl w-fit py-4 px-6 mt-4 rounded shadow text-white font-semibold'>
-                        Logging out...
-                    </p>
-                ) : (
+                <div className='flex items-center justify-start mt-8'>
                     <button
                         type='button'
-                        className={`text-white scale mx-auto rounded shadow-md bg-red-600 py-2 px-4 mt-4${
-                            logginOut ? ' animate-disappear' : ''
-                        }`}
+                        className='text-white scale rounded shadow-md bg-red-600 py-2 px-4 disabled:bg-gray-300 disabled:text-gray-700'
                         onClick={handleLogOut}
+                        disabled={logginOut}
                     >
                         Logout
                     </button>
-                )}
+                    {logginOut ? <CircularLoader /> : null}
+                </div>
             </div>
         </PageContainer>
     )
