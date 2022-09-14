@@ -61,7 +61,9 @@ export const ExpenseReport = () => {
     // const types = Object.keys(otherData)
     return (
         <div className='flex flex-col w-full px-9'>
-            <p className='text-2xl text-start text-tealdark'>{currentMonth} 2022</p>
+            <p className='text-2xl text-start text-tealdark dark:text-orange-400'>
+                {currentMonth} 2022
+            </p>
             <div className='grid w-10/12 grid-cols-3 gap-8 mt-4'>{reportData}</div>
         </div>
     )

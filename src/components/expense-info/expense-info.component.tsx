@@ -19,7 +19,7 @@ export const ExpenseInfo = () => {
     return (
         <ExpenseProvider>
             {showAddForm ? (
-                <div className='flex flex-col items-center justify-start w-1/4 h-screen bg-tealdark min-hs-screen py-6 px-2'>
+                <div className='flex flex-col items-center justify-start w-1/4 h-screen bg-tealdark dark:bg-bgDark min-hs-screen py-6 px-2'>
                     <ExpenseAddForm setShowAddForm={setShowAddForm} />
                 </div>
             ) : (
@@ -37,7 +37,7 @@ const AddButton = ({ handleAddClick }: IAddButton) => {
     return (
         <div className='px-6'>
             <button
-                className='bg-orange-600 font-semibold text-white w-36 py-3 rounded-md shadow-xl'
+                className='bg-orange-600 dark:bg-transparent dark:hover:bg-orange-600 dark:hover:text-textDark1 dark:border-2 dark:border-orange-600 font-semibold text-white w-36 py-3 rounded-md shadow-xl'
                 onClick={handleAddClick}
             >
                 Add

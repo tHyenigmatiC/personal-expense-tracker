@@ -32,8 +32,8 @@ export const Account = () => {
                     image={user.image}
                 />
                 <div className='ml-8 flex flex-col'>
-                    <p className='text-2xl font-bold'>{user.name}</p>
-                    <p className='font-medium text-gray-400'>{user.email}</p>
+                    <p className='text-2xl font-bold dark:text-textDark1'>{user.name}</p>
+                    <p className='font-medium text-gray-400 dark:text-orange-600'>{user.email}</p>
                 </div>
             </div>
         )

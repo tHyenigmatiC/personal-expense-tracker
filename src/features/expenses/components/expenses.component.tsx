@@ -39,15 +39,15 @@ const ExpenseList = () => {
     if (hasData) {
         expenseList = (
             <div>
-                {expense.data.map((exp: IExpense) => {
+                {expense.data.map((exp: IExpense, index) => {
                     const { amount, created_at, memo, remaining } = exp
                     const props = {
                         className:
-                            'flex items-start justify-between shadow rounded-xl py-2 px-8 my-4 bg-bglight',
+                            'flex items-start justify-between shadow rounded-xl py-2 px-8 my-4 bg-bglight dark:bg-hoverDark',
                     }
                     return (
                         <HistoryCard
-                            key={remaining}
+                            key={index}
                             amount={amount}
                             created_at={created_at}
                             memo={memo}

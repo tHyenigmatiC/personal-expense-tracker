@@ -62,13 +62,13 @@ export const getExpenseCategoriesWithData = async ({ user_id, type, value }: ICa
 }
 
 export const addMonthlyReport = async (expenseData: IExpenseData) => {
-    console.log(expenseData)
-    const { data } = await supabase.rpc(
+    const { data, error } = await supabase.rpc(
         'insert_new_expense',
         formatExpenseForPGSQLInsertions(expenseData),
     )
 
-    console.log(data)
+    if (error) throw error
+    return data
 }
 
 export const addMonthlyReportOld = async (expenseData: IExpenseData) => {

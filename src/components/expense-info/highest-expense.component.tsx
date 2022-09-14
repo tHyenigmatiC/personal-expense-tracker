@@ -20,14 +20,16 @@ export const HighestExpense = () => {
         const { type, amount } = getHighestValue(expense.categories)
 
         expenseData = (
-            <div className='flex flex-row m-auto items-center justify-center mt-2 py-2 px-6 shadow-md bg-orange-600 h-28 rounded-md w-fit'>
+            <div className='flex flex-row m-auto items-center justify-center mt-2 py-2 px-6 shadow-md bg-orange-600 dark:border dark:border-orange-600 dark:bg-transparent h-28 rounded-md w-fit'>
                 <img
                     src={icons[type as keyof typeof icons]}
                     className='w-16 h-16'
                 />
-                <div className='flex flex-col items-center bg-orange-400 rounded mx-2 justify-center py-2 px-4'>
-                    <p className='text-xl font-medium text-white capitalize'>{type}</p>
-                    <p className='text-2xl font-bold text-red-600'>
+                <div className='flex flex-col items-center bg-orange-400 dark:bg-hoverDark rounded mx-2 justify-center py-2 px-4'>
+                    <p className='text-xl font-medium text-white dark:text-textDark2 capitalize'>
+                        {type}
+                    </p>
+                    <p className='text-2xl font-bold text-red-600 dark:text-orange-600'>
                         <span className='text-base'>Rs </span>
                         {amount.toLocaleString('en-US')}
                     </p>
@@ -53,7 +55,7 @@ export const HighestExpense = () => {
 
     return (
         <div className='w-full mx-2'>
-            <p className='text-orange-600 text-center font-semibold'>
+            <p className='text-orange-600 dark:text-textDark3 text-center font-semibold'>
                 Where you have spent the most?
             </p>
             {expenseData}

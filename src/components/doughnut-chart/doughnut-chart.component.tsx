@@ -8,7 +8,11 @@ interface IObjectKeys {
     data: object
 }
 
-const getChartData = ({ title, data }: IObjectKeys) => {
+interface IChartData extends IObjectKeys {
+    isDarkMode: boolean
+}
+
+const getChartData = ({ title, isDarkMode, data }: IChartData) => {
     const labels = Object.keys({ ...data })
     const dataset = Object.values({ ...data })
     return {
@@ -19,7 +23,7 @@ const getChartData = ({ title, data }: IObjectKeys) => {
                 label: 'Expense Tracker',
                 data: dataset,
                 backgroundColor: [
-                    '#ff2400',
+                    isDarkMode ? '#FB923C' : '#ff2400',
                     '#50c878',
                     '#006666',
                     '#FFB399',
@@ -28,7 +32,7 @@ const getChartData = ({ title, data }: IObjectKeys) => {
                     '#00B3E6',
                     '#809900',
                 ],
-                borderColor: '#F97316',
+                borderColor: isDarkMode ? '#22303C' : '#F97316',
                 boderWidth: 0.5,
                 hoverOffset: 4,
             },
@@ -37,11 +41,14 @@ const getChartData = ({ title, data }: IObjectKeys) => {
 }
 
 export const DoughnutChart = ({ title, ...data }: IObjectKeys) => {
+    const isDarkMode = !!localStorage.theme
     return (
         <div className='flex flex-col items-start h-48 w-72'>
-            <p className='text-lg font-medium text-orange-900'>{title}</p>
+            <p className='text-lg font-medium text-orange-900 dark:text-textDark1 dark:font-normal dark:text-base'>
+                {title}
+            </p>
             <Doughnut
-                data={getChartData({ title, ...data })}
+                data={getChartData({ title, isDarkMode, ...data })}
                 options={{
                     responsive: true,
                     maintainAspectRatio: false,
@@ -60,7 +67,7 @@ export const DoughnutChart = ({ title, ...data }: IObjectKeys) => {
                                     weight: 'bold',
                                     size: 12,
                                 },
-                                color: '#000000',
+                                color: isDarkMode ? '#b8c2ca' : '#000000',
                             },
                         },
                     },

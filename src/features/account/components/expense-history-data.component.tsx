@@ -72,8 +72,10 @@ export const ExpenseHistoryData = ({ userId }: { userId: string }) => {
 
     return (
         <div className='flex flex-col items-start self-center my-8'>
-            <p className='ml-1 text-gray-600 text-sm font-medium'>Expense History</p>
-            <div className='flex flex-col bg-tealdark p-4 mt-1 rounded shadow w-full text-sm'>
+            <p className='ml-1 text-gray-600 dark:text-textDark3 text-sm font-medium'>
+                Expense History
+            </p>
+            <div className='flex flex-col bg-tealdark dark:bg-hoverDark p-4 mt-1 rounded shadow w-full text-sm'>
                 <DateRangePicker />
             </div>
 
@@ -90,7 +92,7 @@ export const ExpenseHistoryData = ({ userId }: { userId: string }) => {
 
             <button
                 type='button'
-                className='bg-blue-600 text-sm p-2 w-fit mt-4 rounded text-white'
+                className='bg-blue-600 text-sm p-2 w-fit mt-4 rounded text-white dark:border dark:border-blue-600 dark:hover:bg-blue-600 dark:bg-transparent'
                 onClick={handlePrint}
             >
                 Print History

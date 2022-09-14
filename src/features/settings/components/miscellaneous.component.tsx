@@ -21,7 +21,7 @@ export const MiscellaneousSettings = () => {
 
     const handleUpdateClick = () => {
         alert('value updated')
-    }   
+    }
 
     let actionButton
 
@@ -29,7 +29,7 @@ export const MiscellaneousSettings = () => {
         actionButton = (
             <button
                 type='button'
-                className='p-2 bg-blue-600 rounded shadow-md text-white'
+                className='p-2 bg-blue-600 dark:hover:bg-blue-600 dark:hover:text-textDark1 dark:bg-transparent dark:text-textDark3 dark:border-blue-600 dark:border rounded shadow-md text-white'
                 onClick={handleUpdateClick}
             >
                 Save Changes
@@ -38,8 +38,8 @@ export const MiscellaneousSettings = () => {
     }
     return (
         <div className='text-sm my-4'>
-            <p className='text-gray-600 text-sm font-medium'>Miscellaneous</p>
-            <div className='flex flex-row justify-between bg-tealdark text-white rounded shadow-md p-4 mt-1 mb-4'>
+            <p className='text-gray-600 dark:text-textDark2 text-sm font-medium'>Miscellaneous</p>
+            <div className='flex flex-row justify-between bg-tealdark dark:bg-hoverDark text-white rounded shadow-md p-4 mt-1 mb-4'>
                 <p>Generate montly report and email me</p>
                 <input
                     name='monthlySubscription'

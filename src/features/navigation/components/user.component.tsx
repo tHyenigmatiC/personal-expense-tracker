@@ -26,10 +26,10 @@ export const ImageCard = ({ image }: ImageProps) => {
 export const User = () => {
     const { name, image, email }: User = user
     return (
-        <div className='flex flex-col items-center justify-center mb-4 mt-2 border-b border-teallight pb-6 w-4/5'>
+        <div className='flex flex-col items-center justify-center mb-4 mt-2 border-b border-teallight dark:border-orange-600 pb-6 w-4/5'>
             <ImageCard image={image} />
-            <p className='font-serif text-teallight font-medium'>{name}</p>
-            <p className='font-serif text-teal-200 text-sm'>{email}</p>
+            <p className='font-serif text-teallight dark:text-textDark3 font-medium'>{name}</p>
+            <p className='font-serif text-teal-200 dark:text-orange-400 text-sm'>{email}</p>
         </div>
     )
 }

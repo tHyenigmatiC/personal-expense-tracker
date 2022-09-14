@@ -15,6 +15,7 @@ module.exports = {
                 '404Image': "url('https://i.imgur.com/yW2W9SC.png')",
             },
             borderWidth: {
+                0.1: '0.1px',
                 3: '3px',
                 5: '5px',
                 6: '6px',
@@ -46,8 +47,10 @@ module.exports = {
                 bgDark: '#15202B',
                 cardDark: '#192734',
                 hoverDark: '#22303C',
+                borderDark: '#4e5963',
                 textDark1: '#FFFFFF',
                 textDark2: '#8899A6',
+                textDark3: '#b8c2ca',
             },
             height: {
                 '40vh': '40vh',

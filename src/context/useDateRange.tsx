@@ -15,7 +15,7 @@ export { DateRangeContext }
 
 export const DateRangeProvider = ({ children }: ChildrenProps) => {
     const value = {
-        fromDate: useState<Date>(new Date()),
+        fromDate: useState<Date>(new Date(new Date().setDate(new Date().getDate() - 1))),
         toDate: useState<Date>(new Date()),
     }
     return <DateRangeContext.Provider value={value}>{children}</DateRangeContext.Provider>

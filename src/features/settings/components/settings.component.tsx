@@ -49,7 +49,7 @@ export const Settings = () => {
                 <div className='flex items-center justify-start mt-8'>
                     <button
                         type='button'
-                        className='text-white scale rounded shadow-md bg-red-600 py-2 px-4 disabled:bg-gray-300 disabled:text-gray-700'
+                        className='text-white scale rounded shadow-md dark:hover:bg-red-600 dark:hover:text-textDark1 bg-red-600 dark:bg-transparent py-2 px-4 dark:text-textDark3 dark:border-red-600 dark:border dark:rounded disabled:bg-gray-300 disabled:text-gray-700'
                         onClick={handleLogOut}
                         disabled={logginOut}
                     >

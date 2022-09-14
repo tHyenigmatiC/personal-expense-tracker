@@ -49,7 +49,7 @@ export const SecuritySettings = () => {
                 <div className='flex flex-row items-center justify-start mt-5 gap-2'>
                     <button
                         type='submit'
-                        className='min-w-fit p-2 rounded-md text-white w-24 bg-blue-600'
+                        className='min-w-fit p-2 rounded-md text-white w-24 bg-blue-600 dark:bg-transparent dark:border dark:border-green-600 dark:hover:bg-green-600'
                     >
                         Save Changes
                     </button>
@@ -60,7 +60,7 @@ export const SecuritySettings = () => {
                     ) : (
                         <button
                             type='button'
-                            className='min-w-fit p-2 rounded-md text-white w-24 bg-red-600'
+                            className='min-w-fit p-2 rounded-md text-white w-24 bg-red-600 dark:bg-transparent dark:border dark:border-red-600 dark:hover:bg-red-600'
                             onClick={() => {
                                 setCanEdit(!canEdit)
                             }}
@@ -79,7 +79,7 @@ export const SecuritySettings = () => {
         changeButton = (
             <button
                 type='button'
-                className='min-w-fit rounded text-white text-sm bg-blue-600 px-4 capitalize'
+                className='min-w-fit rounded text-white dark:bg-transparent dark:border dark:px-4 dark:py-2 dark:hover:bg-orange-600 dark:border-orange-600 text-sm bg-blue-600 px-4 capitalize'
                 onClick={() => {
                     setCanEdit(true)
                     setFormState(INTIAL_STATE)
@@ -92,15 +92,15 @@ export const SecuritySettings = () => {
 
     return (
         <div className='flex flex-col items-start self-center mt-8'>
-            <p className='ml-1 text-gray-600 text-sm font-medium'>Security</p>
+            <p className='ml-1 text-gray-600 dark:text-textDark3 text-sm font-medium'>Security</p>
             <form
                 onSubmit={handleOnSubmit}
                 className='mt-1 w-full text-sm'
             >
-                <div className='flex flex-col shadow-md rounded bg-tealdark p-4'>
+                <div className='flex flex-col shadow-md rounded bg-tealdark dark:bg-hoverDark p-4'>
                     <label
                         htmlFor='password'
-                        className='text-white font-medium ml-1 mb-1'
+                        className='text-white font-medium ml-1 mb-1 dark:text-orange-400'
                     >
                         Password
                     </label>

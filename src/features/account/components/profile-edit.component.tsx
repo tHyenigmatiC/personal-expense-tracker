@@ -64,7 +64,7 @@ export const ProfileEdit = ({ ...user }: UserProps) => {
         <div className='flex items-center mt-4'>
             <button
                 type='submit'
-                className='bg-blue-600 max-w-fit p-2 rounded text-white text-sm disabled:bg-gray-500'
+                className='bg-blue-600 max-w-fit p-2 rounded dark:hover:bg-green-600 text-white text-sm dark:border dark:border-green-600 dark:bg-transparent disabled:bg-gray-500'
                 disabled={isLoading || showSuccess}
             >
                 Save Changes
@@ -75,22 +75,24 @@ export const ProfileEdit = ({ ...user }: UserProps) => {
 
     return (
         <div className='flex flex-col items-start'>
-            <p className='ml-1 mt-2 text-sm font-medium text-gray-600'>Profile</p>
+            <p className='ml-1 mt-2 text-sm font-medium text-gray-600 dark:text-textDark3'>
+                Profile
+            </p>
             <form
                 onSubmit={handleOnSubmit}
                 className='mt-1 text-sm w-full'
             >
-                <div className='grid grid-cols-2 gap-x-10 bg-tealdark p-4 rounded-md shadow-md'>
+                <div className='grid grid-cols-2 gap-x-10 bg-tealdark dark:bg-hoverDark p-4 rounded-md shadow-md'>
                     <div className='flex flex-col text-white'>
                         <div className='flex items-center justify-between mb-1'>
                             <label
                                 htmlFor='name'
-                                className='ml-1'
+                                className='ml-1 dark:text-orange-400'
                             >
                                 Name
                             </label>
                             <EditIcon
-                                className='text-blue-400 w-4 h-4 cursor-pointer'
+                                className='text-blue-400 dark:text-orange-400 w-4 h-4 cursor-pointer'
                                 onClick={() => toggleInputEditable({ type: 'name' })}
                             />
                         </div>
@@ -106,7 +108,7 @@ export const ProfileEdit = ({ ...user }: UserProps) => {
                     <div className='flex flex-col text-white'>
                         <label
                             htmlFor='email'
-                            className='ml-1 mb-1'
+                            className='ml-1 mb-1 dark:text-orange-400'
                         >
                             Email
                         </label>

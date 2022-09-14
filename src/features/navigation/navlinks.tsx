@@ -8,7 +8,7 @@ export interface Navlink {
 
 const getIconProps = (text: string) => {
     return {
-        className: 'p-1 mr-4 group-hover:fill-tealdark w-8 h-8',
+        className: 'p-1 mr-4 group-hover:fill-tealdark dark:group-hover:fill-textDark1 w-8 h-8',
         'aria-label': text,
     }
 }

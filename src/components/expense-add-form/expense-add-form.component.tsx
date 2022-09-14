@@ -13,6 +13,8 @@ import { addMonthlyReport } from '../../api/api'
 
 import { useExpense } from '../../context/expense/useExpense'
 import { useAuth } from '../../features/authentication/context/useAuth'
+import { CircularLoader } from '../loader/circular-loader.component'
+import { Success } from '../success/success.component'
 
 interface IAddButton {
     setShowAddForm: Dispatch<SetStateAction<boolean>>
@@ -44,6 +46,9 @@ export const ExpenseAddForm = ({ setShowAddForm }: IAddButton) => {
         remaining: 0,
         category: 'Home',
     })
+
+    const [isLoading, setIsLoading] = useState(false)
+    const [isSuccess, setIsSuccess] = useState(false)
 
     const { expense, getReport } = useExpense()
     const { session } = useAuth()
@@ -95,6 +100,7 @@ export const ExpenseAddForm = ({ setShowAddForm }: IAddButton) => {
         if (!canSubmit) return
         // eslint-disable-next-line camelcase
         if (session?.user) {
+            setIsLoading(true)
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const { remaining, ...data } = {
                 ...formState,
@@ -102,9 +108,12 @@ export const ExpenseAddForm = ({ setShowAddForm }: IAddButton) => {
 
             addMonthlyReport({ ...data })
                 .then(() => {
+                    setIsLoading(false)
+                    setIsSuccess(true)
                     setTimeout(() => {
+                        setIsSuccess(false)
                         setShowAddForm(false)
-                    }, 1000)
+                    }, 500)
                 })
                 .catch(error => {
                     console.log(error)
@@ -115,13 +124,17 @@ export const ExpenseAddForm = ({ setShowAddForm }: IAddButton) => {
 
     let expenseForm
 
+    const hideCancelButton = isLoading || isSuccess
+
     if (hasData) {
         expenseForm = (
             <div className='text-white w-11/12'>
-                <p className='text-teal-200 text-lg text-center mb-4 font-semibold'>Add Expense</p>
+                <p className='text-teal-200 dark:bg-transparent dark:text-textDark1 text-lg text-center mb-4 font-semibold'>
+                    Add Expense
+                </p>
                 <form
                     id='add-new-expense'
-                    className='flex flex-col px-3 py-2 text-tealdark items-start justify-center w-95% bg-bglight rounded shadow-md'
+                    className='flex flex-col px-3 py-2 text-tealdark dark:text-textDark3 items-start justify-center w-95% bg-bglight dark:bg-hoverDark rounded shadow-md'
                     onSubmit={handleSubmit}
                 >
                     <div className='my-2 flex flex-col w-full'>
@@ -189,7 +202,7 @@ export const ExpenseAddForm = ({ setShowAddForm }: IAddButton) => {
                             value={formState.remaining}
                             disabled
                             type='number'
-                            className='p-2 text-orange disabled:border-2 disabled:border-orange-400 disabled:bg-gray-300 text-tealdark w-full my-2 border-2 invalid:border-red-400 border-gray-200 rounded'
+                            className='p-2 text-orange disabled:border-2 disabled:border-orange-400 dark:disabled:border-green-400 disabled:bg-gray-300 text-tealdark w-full my-2 border-2 invalid:border-red-400 border-gray-200 rounded'
                         />
                     </div>
                 </form>
@@ -197,18 +210,23 @@ export const ExpenseAddForm = ({ setShowAddForm }: IAddButton) => {
                     <button
                         type='submit'
                         form='add-new-expense'
-                        className='bg-green-600 rounded shadow-lg px-10 py-3 disabled:bg-slate-500'
-                        disabled={!canSubmit}
+                        className='bg-green-600 dark:bg-green-600 dark:disabled:bg-transparent dark:disabled:hover:bg-transparent dark:border-transparent dark:disabled:border dark:disabled:border-borderDark dark:disabled:text-textDark2 rounded shadow-lg px-10 py-3 disabled:bg-slate-500'
+                        disabled={!canSubmit || hideCancelButton}
                     >
                         Add
                     </button>
-                    <button
-                        type='button'
-                        onClick={() => setShowAddForm(false)}
-                        className='bg-red-500 px-6 py-3 rounded'
-                    >
-                        Cancel
-                    </button>
+                    {hideCancelButton ? null : (
+                        <button
+                            type='button'
+                            onClick={() => setShowAddForm(false)}
+                            className='bg-red-500 px-6 py-3 rounded dark:bg-transparent dark:border dark:border-red-600 dark:hover:bg-red-500'
+                        >
+                            Cancel
+                        </button>
+                    )}
+
+                    {isLoading && <CircularLoader />}
+                    {isSuccess && <Success />}
                 </div>
             </div>
         )
