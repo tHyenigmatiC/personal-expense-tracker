@@ -113,24 +113,21 @@ const Pagination = ({ page, count, getAllExpense }: IPagination) => {
     }
 
     return (
-        <div className='border border-orange-600 rounded flex items-center text-orange-600 font-semibold w-fit px-4 py-2 justify-around'>
+        <div className='border border-orange-600 rounded flex items-center text-orange-600 font-semibold w-fit px-4 justify-around'>
             <button
                 type='button'
                 disabled={disablePrevious}
                 onClick={gotoPreviousPage}
-                className='border-r border-orange-600 dark:border-white px-2 text-2xl disabled:text-gray-400 dark:disabled:text-borderDark'
+                className='border-r border-orange-600 dark:border-white pr-4 py-2 text-2xl disabled:text-gray-400 dark:disabled:text-borderDark'
             >
                 {'<'}
             </button>
-            <p className='white p-2 mx-1 dark:bg-hoverDark'>
-                <span className='font-normal'>Page: </span>
-                {page}
-            </p>
+            <p className='white px-2 py-2 mx-6 text-center'>{page}</p>
             <button
                 type='button'
                 disabled={disableNext}
                 onClick={gotoNextPage}
-                className='border-l border-orange-600 dark:border-white px-2 text-2xl disabled:text-gray-400 dark:disabled:text-borderDark'
+                className='border-l border-orange-600 dark:border-white pl-4 py-2 text-2xl disabled:text-gray-400 dark:disabled:text-borderDark'
             >
                 {'>'}
             </button>
