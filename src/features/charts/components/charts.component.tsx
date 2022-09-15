@@ -20,10 +20,10 @@ const cleanDataforReport = ({ ...data }) => {
 }
 
 const CharContainer = ({ type, title }: IChart) => {
-    const { getExpenseWithCategories, getReport, expense } = useExpense()
+    const { getExpenseWithCategories, getReport, categories, report } = useExpense()
 
     // filter the data according to the type provided
-    let data = expense[type as keyof typeof expense]
+    let data = type === 'report' ? report : categories
 
     const currentMonth = new Date().toLocaleDateString('default', { month: 'long' })
 
@@ -47,7 +47,7 @@ const CharContainer = ({ type, title }: IChart) => {
         }
 
         if (type === 'categories') {
-            data 
+            data
         }
         chartData = (
             <DoughnutChart

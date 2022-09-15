@@ -10,19 +10,16 @@ export const registerUser = async (
     const userExists = await doesUserExists(credentials.email)
 
     if (userExists) throw new Error('Account already exists')
-    const { data, error } = await supabase.auth.signUp(credentials)
 
+    const { name, ...otherCredentials } = credentials
+
+    const response = await supabase.auth.signUp({
+        ...otherCredentials,
+        options: { data: { name } },
+    })
+
+    const { error } = response
     if (error) throw error
-
-    const updates = {
-        id: data.user?.id,
-        name: credentials.name,
-        email: credentials.email,
-        // eslint-disable-next-line camelcase
-        updated_at: new Date(),
-    }
-
-    const response = await supabase.from('profiles').insert(updates)
     return response
 }
 
@@ -32,14 +29,18 @@ export const loginUser = async (credentials: ILogin): Promise<AuthResponse> => {
 }
 
 const doesUserExists = async (email: string) => {
-    const { data, status, error } = await supabase
-        .from('profiles')
-        .select('email')
-        .eq('email', email)
-        .single()
+    try {
+        const { data, status, error } = await supabase
+            .from('profiles')
+            .select('email')
+            .eq('email', email)
 
-    if (status === 406) return false
-    if (data) return true
-    if (error) throw error
-    return false
+        console.log({ data, status, error })
+        if (error) throw error
+        if (data?.length) return true
+        else return false
+    } catch (error) {
+        console.log(error)
+        return false
+    }
 }

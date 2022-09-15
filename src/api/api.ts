@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
+import { EXPENSE_ITEMS_IN_ONE_PAGE } from '../constants'
 import { supabase } from '../db/supabaseClient'
-import { formatExpenseForPGSQLInsertions } from './utils'
+import { formatExpenseForPGSQLInsertions, getPagination } from './utils'
 
 interface IUser {
     user_id: string
@@ -8,6 +9,10 @@ interface IUser {
 
 interface IExpenseQuery extends IUser {
     limit?: number
+}
+
+interface IExpenseQueryPagination extends IUser {
+    page: number
 }
 
 interface IReportQuery extends IUser {
@@ -29,13 +34,25 @@ interface IExpenseData {
     category: string
 }
 
-export const getAllExpenseForUser = async ({ user_id, limit = 50 }: IExpenseQuery) => {
+export const getAllExpenseForUser = async ({ user_id, limit = 4 }: IExpenseQuery) => {
     const response = await supabase
         .from('expenses')
         .select('created_at, amount, remaining, memo ')
         .eq('user_id', user_id)
         .order('created_at', { ascending: false })
         .limit(limit)
+
+    return response
+}
+
+export const getExpenseWithPagination = async ({ user_id, page }: IExpenseQueryPagination) => {
+    const { from, to } = getPagination(page, EXPENSE_ITEMS_IN_ONE_PAGE)
+    const response = await supabase
+        .from('expenses')
+        .select('created_at, amount, remaining, memo', { count: 'exact' })
+        .eq('user_id', user_id)
+        .order('created_at', { ascending: false })
+        .range(from, to)
 
     return response
 }

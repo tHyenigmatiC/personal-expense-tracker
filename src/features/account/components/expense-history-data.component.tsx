@@ -3,6 +3,7 @@ import { forwardRef, LegacyRef, useCallback, useRef, useState, Suspense } from '
 import { useReactToPrint } from 'react-to-print'
 
 import { DateRangePicker } from '../../../components/date-picker/date-range-picker.component'
+import { CircularLoader } from '../../../components/loader/circular-loader.component'
 import { useDateRange } from '../../../context/useDateRange'
 import { useAuth } from '../../authentication/context/useAuth'
 import { getExpensesBetween } from '../services/api'
@@ -29,6 +30,8 @@ export const ExpenseHistoryData = ({ userId }: { userId: string }) => {
     const componentRef = useRef(null)
 
     const [isPrinting, setIsPrinting] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState<string | null>(null)
     const onBeforeGetContentResolve = useRef<((value: any) => void) | null>(null)
     const dataRef = useRef<IExpense[] | null>(null)
 
@@ -45,6 +48,8 @@ export const ExpenseHistoryData = ({ userId }: { userId: string }) => {
     })
 
     const loadData = () => {
+        setIsLoading(true)
+        setError(null)
         getExpensesBetween({
             startDate: startDate.toISOString().split('T')[0],
             endDate: endDate.toISOString().split('T')[0],
@@ -52,12 +57,18 @@ export const ExpenseHistoryData = ({ userId }: { userId: string }) => {
             user_id: userId,
         })
             .then(response => {
+                setIsLoading(false)
                 const { data, error } = response
                 if (error) throw error
-                if (data) dataRef.current = data
+                if (data.length) dataRef.current = data
+                else {
+                    setError('No data available for selected dates')
+                    return
+                }
                 setIsPrinting(true)
             })
             .catch(error => {
+                setIsLoading(false)
                 console.log(error)
                 throw error
             })
@@ -89,14 +100,19 @@ export const ExpenseHistoryData = ({ userId }: { userId: string }) => {
                     </Suspense>
                 )}
             </div>
-
-            <button
-                type='button'
-                className='bg-blue-600 text-sm p-2 w-fit mt-4 rounded text-white dark:border dark:border-blue-600 dark:hover:bg-blue-600 dark:bg-transparent'
-                onClick={handlePrint}
-            >
-                Print History
-            </button>
+            <div className='flex items-center  mt-4'>
+                <button
+                    type='button'
+                    className='bg-blue-600 text-sm p-2 w-fit rounded text-white dark:border dark:border-blue-600 dark:hover:bg-blue-600 dark:bg-transparent'
+                    onClick={handlePrint}
+                >
+                    Print History
+                </button>
+                {error && (
+                    <p className='ml-4 text-red-600 font-semibold  dark:text-red-400'>{error}</p>
+                )}
+                {isLoading && <CircularLoader />}
+            </div>
         </div>
     )
 }
@@ -136,7 +152,11 @@ const DataTable = ({ data }: IData) => {
                             className='border-r border-slate-400 p-6'
                             key={header}
                         >
-                            {header === 'created_at' ? 'DATE' : header.toUpperCase()}
+                            {header === 'created_at'
+                                ? 'DATE'
+                                : header === 'memo'
+                                ? 'PURPOSE'
+                                : header.toUpperCase()}
                         </th>
                     ))}
                 </tr>

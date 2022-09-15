@@ -7,7 +7,7 @@ interface CardProps {
 
 export const ExpenseCard = ({ type, amount, icon }: CardProps) => {
     return (
-        <div className='flex flex-row items-center px-2 py-5 border dark:bg-hoverDark dark:shadow-black dark:border-borderDark border-teal-100 bg-green-100 shadow rounded'>
+        <div className='flex flex-row items-center px-2 py-5 border dark:bg-hoverDark dark:shadow-black dark:border-borderDark border-teal-100 bg-green-100 shadow drop-shadow rounded'>
             {icon ? icon : null}
             <div className='flex flex-col items-center'>
                 <p className='text-lg dark:text-textDark2'>

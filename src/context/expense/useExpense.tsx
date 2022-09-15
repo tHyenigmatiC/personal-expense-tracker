@@ -1,6 +1,11 @@
 /* eslint-disable camelcase */
 import { createContext, ReactNode, useContext, useState } from 'react'
-import { getAllExpenseForUser, getExpenseCategoriesWithData, getReportByType } from '../../api/api'
+import {
+    getAllExpenseForUser,
+    getExpenseCategoriesWithData,
+    getExpenseWithPagination,
+    getReportByType,
+} from '../../api/api'
 import { useAuth } from '../../features/authentication/context/useAuth'
 
 interface IExpense {
@@ -34,8 +39,11 @@ interface ICategoryExpense {
 
 interface IExpenseData {
     data: IExpense[] | []
-    report: IReportWithImage | null
-    categories: ICategoryExpense | null | object
+}
+
+interface IExpenseDataPagination extends IExpenseData {
+    count: number | undefined
+    page: number
 }
 
 interface IChildren {
@@ -53,19 +61,27 @@ interface ICategoryQuery {
 }
 
 interface IContext {
-    expense: IExpenseData
+    expensePreview: IExpenseData
+    expenses: IExpenseDataPagination
+    report: IReportWithImage | null
+    categories: ICategoryExpense | null | object
     getExpensesPreview: () => void
-    getAllExpense: () => void
+    getAllExpense: (page: number) => void
     getReport: (query: IReportQuery) => void
     getExpenseWithCategories: (query: ICategoryQuery) => void
 }
 
 const INTIAL_VALUE: IContext = {
-    expense: {
+    expensePreview: {
         data: [],
-        report: null,
-        categories: null,
     },
+    expenses: {
+        data: [],
+        count: 0,
+        page: 1,
+    },
+    report: null,
+    categories: null,
     getExpensesPreview: () => undefined,
     getAllExpense: () => undefined,
     getReport: () => undefined,
@@ -80,7 +96,8 @@ const ExpenseContext = createContext(INTIAL_VALUE)
 ExpenseContext.displayName = 'ExpenseContext'
 
 const ExpenseProvider = ({ children }: IChildren) => {
-    const [expenseData, setExpenseData] = useState<IExpense[] | []>([])
+    const [expensePreview, setExpensePreview] = useState<IExpenseData>(INTIAL_VALUE.expensePreview)
+    const [expenses, setExpenses] = useState<IExpenseDataPagination>(INTIAL_VALUE.expenses)
     const [report, setReport] = useState<IReportWithImage | null>(null)
     const [categories, setCategories] = useState<ICategoryExpense | null | object>(null)
     const { session } = useAuth()
@@ -88,26 +105,26 @@ const ExpenseProvider = ({ children }: IChildren) => {
 
     const getExpensesPreview = () => {
         if (!hasSession) return
-        getAllExpenseForUser({ user_id: session.user.id, limit: 4 })
+        getAllExpenseForUser({ user_id: session.user.id })
             .then(response => {
                 const { data, error } = response
 
                 if (error) throw error
-                setExpenseData(data)
+                setExpensePreview({ data })
             })
             .catch(error => {
                 throw error
             })
     }
 
-    const getAllExpense = () => {
+    const getAllExpense = (page = 1) => {
         if (!hasSession) return
-        getAllExpenseForUser({ user_id: session.user.id })
+        getExpenseWithPagination({ user_id: session.user.id, page })
             .then(response => {
-                const { data, error } = response
+                const { data, error, count } = response
 
                 if (error) throw error
-                setExpenseData(data)
+                setExpenses({ data, count, page: +page })
             })
             .catch(error => {
                 throw error
@@ -147,11 +164,10 @@ const ExpenseProvider = ({ children }: IChildren) => {
     }
 
     const value: IContext = {
-        expense: {
-            data: expenseData,
-            report,
-            categories,
-        },
+        expensePreview,
+        expenses,
+        report,
+        categories,
         getExpensesPreview,
         getAllExpense,
         getReport,

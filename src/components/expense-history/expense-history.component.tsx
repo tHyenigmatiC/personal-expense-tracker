@@ -20,20 +20,20 @@ interface IExpense {
 
 export const ExpenseHistory = () => {
     const {
-        expense: { data: expenseData },
+        expensePreview: { data },
         getExpensesPreview,
     } = useExpense()
 
     useEffect(() => {
-        if (expenseData.length === 0) getExpensesPreview()
-    }, [expenseData])
+        if (data.length === 0) getExpensesPreview()
+    }, [data])
 
     let expenseHistory
 
-    const hasData = Boolean(expenseData.length)
+    const hasData = Boolean(data.length)
 
     if (hasData) {
-        expenseHistory = expenseData.map(({ ...data }: IExpense, index) => {
+        expenseHistory = data.map(({ ...data }: IExpense, index) => {
             return (
                 <HistoryCard
                     key={index}

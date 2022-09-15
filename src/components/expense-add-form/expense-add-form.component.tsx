@@ -50,24 +50,20 @@ export const ExpenseAddForm = ({ setShowAddForm }: IAddButton) => {
     const [isLoading, setIsLoading] = useState(false)
     const [isSuccess, setIsSuccess] = useState(false)
 
-    const { expense, getReport } = useExpense()
+    const { report, getReport } = useExpense()
     const { session } = useAuth()
-
-    const hasData = expense.report
 
     useEffect(() => {
         // eslint-disable-next-line camelcase
-        if (!hasData) getReport({ report_type: currentMonth })
-        if (expense.report) {
-            setFormState({ ...formState, remaining: parseInt(expense.report.remaining) })
-        }
-    }, [hasData])
+        if (!report) getReport({ report_type: currentMonth })
+        else setFormState({ ...formState, remaining: parseInt(report.remaining) })
+    }, [report])
 
     useEffect(() => {
-        if (expense.report) {
+        if (report) {
             setFormState({
                 ...formState,
-                remaining: parseInt(expense.report.remaining) - formState.amount,
+                remaining: parseInt(report.remaining) - formState.amount,
             })
         }
     }, [formState.amount])
@@ -86,8 +82,8 @@ export const ExpenseAddForm = ({ setShowAddForm }: IAddButton) => {
             setFormState({ ...formState, [name]: 0 })
             return
         }
-        if (expense.report && e.currentTarget.value > expense.report.remaining) {
-            setFormState({ ...formState, [e.currentTarget.name]: expense.report.remaining })
+        if (report && e.currentTarget.value > report.remaining) {
+            setFormState({ ...formState, [e.currentTarget.name]: report.remaining })
             return
         }
         setFormState({ ...formState, [e.currentTarget.name]: e.currentTarget.value })
@@ -126,7 +122,7 @@ export const ExpenseAddForm = ({ setShowAddForm }: IAddButton) => {
 
     const hideCancelButton = isLoading || isSuccess
 
-    if (hasData) {
+    if (report) {
         expenseForm = (
             <div className='text-white w-11/12'>
                 <p className='text-teal-200 dark:bg-transparent dark:text-textDark1 text-lg text-center mb-4 font-semibold'>

@@ -10,25 +10,23 @@ import { useExpense } from '../../context/expense/useExpense'
 import { useEffect } from 'react'
 
 export const ExpenseCategory = () => {
-    const { expense, getExpenseWithCategories } = useExpense()
-
-    const data = expense.categories
+    const { categories, getExpenseWithCategories } = useExpense()
 
     const currentMonth = new Date().toLocaleDateString('default', { month: 'long' })
 
     useEffect(() => {
-        if (!data) getExpenseWithCategories({ type: 'month', value: currentMonth })
-    }, [data])
+        if (!categories) getExpenseWithCategories({ type: 'month', value: currentMonth })
+    }, [categories])
 
     let expenseCategory
 
-    if (data) {
-        expenseCategory = Object.keys({ ...data }).map(category => {
-            const cKey = category as keyof typeof data
+    if (categories) {
+        expenseCategory = Object.keys({ ...categories }).map(category => {
+            const cKey = category as keyof typeof categories
             return (
                 <CategoryCard
                     type={category}
-                    amount={data[cKey]}
+                    amount={categories[cKey]}
                     key={category}
                     icon={icons[cKey]}
                 />

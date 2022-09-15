@@ -10,7 +10,7 @@ export const Dashboard = () => {
         <PageContainer>
             <ExpenseProvider>
                 <ExpenseReport />
-                <div className='bg-orange-500 dark:bg-hoverDark w-11/12 h-64 m-4 py-4 rounded-md shadow-md flex justify-around'>
+                <div className='bg-bglight dark:bg-hoverDark w-11/12 h-64 m-4 py-4 rounded shadow-lg drop-shadow-lg flex justify-around'>
                     <Charts
                         type='report'
                         title='Monthly Report'

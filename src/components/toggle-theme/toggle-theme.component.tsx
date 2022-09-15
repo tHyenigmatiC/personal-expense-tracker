@@ -36,6 +36,3 @@ export const ToggleTheme = () => {
         </div>
     )
 }
-function userRef(arg0: boolean) {
-    throw new Error('Function not implemented.')
-}

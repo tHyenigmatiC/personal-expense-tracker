@@ -6,7 +6,7 @@ interface CardProps {
 
 export const CategoryCard = ({ type, amount, icon }: CardProps) => {
     return (
-        <div className='flex flex-col items-center dark:bg-hoverDark dark:shadow-black dark:border-borderDark justify-center py-3 pl-4 pr-2 shadow border border-teal-100 bg-green-100 h-28 rounded-xl'>
+        <div className='flex flex-col items-center dark:bg-hoverDark dark:shadow-black dark:border-borderDark justify-center py-3 pl-4 pr-2 shadow-lg border border-teal-100 bg-green-100 h-28 drop-shadow-lg rounded-xl'>
             <img
                 src={icon}
                 className='w-12 h-12 mb-2'

@@ -10,24 +10,20 @@ import { useExpense } from '../../context/expense/useExpense'
 import { getIconProps, BankNotesIcon } from '../../assets/heroicons'
 
 export const ExpenseReport = () => {
-    const { getReport, expense } = useExpense()
-
-    const data = expense.report
+    const { getReport, report } = useExpense()
 
     const currentMonth = new Date().toLocaleDateString('default', { month: 'long' })
 
     useEffect(() => {
         // eslint-disable-next-line camelcase
-        if (!data) getReport({ report_type: currentMonth })
-    }, [data])
-
-    const hasData = !!expense.report
+        if (!report) getReport({ report_type: currentMonth })
+    }, [report])
 
     let reportData
 
-    if (hasData) {
+    if (report) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { image, ...reportTypes } = { ...expense.report }
+        const { image, ...reportTypes } = { ...report }
         const types = Object.keys(reportTypes)
         reportData = types.map(key => {
             const amount = reportTypes[key as keyof typeof reportTypes]

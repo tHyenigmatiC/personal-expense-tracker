@@ -5,19 +5,18 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
 export const HighestExpense = () => {
-    const { expense, getExpenseWithCategories } = useExpense()
+    const { categories, getExpenseWithCategories } = useExpense()
 
-    const hasData = expense.categories
     const currentMonth = new Date().toLocaleDateString('default', { month: 'long' })
 
     useEffect(() => {
-        if (!hasData) getExpenseWithCategories({ type: 'month', value: currentMonth })
-    }, [hasData])
+        if (!categories) getExpenseWithCategories({ type: 'month', value: currentMonth })
+    }, [categories])
 
     let expenseData
 
-    if (expense.categories) {
-        const { type, amount } = getHighestValue(expense.categories)
+    if (categories) {
+        const { type, amount } = getHighestValue(categories)
 
         expenseData = (
             <div className='flex flex-row m-auto items-center justify-center mt-2 py-2 px-6 shadow-md bg-orange-600 dark:border dark:border-orange-600 dark:bg-transparent h-28 rounded-md w-fit'>

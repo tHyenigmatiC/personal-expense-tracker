@@ -32,7 +32,7 @@ const getChartData = ({ title, isDarkMode, data }: IChartData) => {
                     '#00B3E6',
                     '#809900',
                 ],
-                borderColor: isDarkMode ? '#22303C' : '#F97316',
+                borderColor: isDarkMode ? '#22303C' : '#e3fae3',
                 boderWidth: 0.5,
                 hoverOffset: 4,
             },
@@ -41,7 +41,7 @@ const getChartData = ({ title, isDarkMode, data }: IChartData) => {
 }
 
 export const DoughnutChart = ({ title, ...data }: IObjectKeys) => {
-    const isDarkMode = !!localStorage.theme
+    const isDarkMode = localStorage.theme && localStorage.theme == 'dark'
     return (
         <div className='flex flex-col items-start h-48 w-72'>
             <p className='text-lg font-medium text-orange-900 dark:text-textDark1 dark:font-normal dark:text-base'>

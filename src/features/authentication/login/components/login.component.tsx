@@ -18,7 +18,7 @@ export const Login = ({ ...props }: ILoginProps) => {
 
     if (showError) {
         errorMessage = (
-            <p className='text-red-600 dark:bg-transparent dark:border dark:border-red-600 dark:text-textDark1 text-center animate-slide-right h-fit bg-gray-100 w-20vw rounded py-4 px-8 last:text-sm font-semibold mt-4 md:absolute top-44 right-10'>
+            <p className='text-red-600 dark:bg-transparent dark:border dark:border-red-600 dark:text-textDark1 text-center animate-slide-right h-fit bg-gray-100 w-20vw rounded py-3 px-8 last:text-sm font-semibold mt-4 md:absolute top-48 right-10'>
                 {error?.message}
             </p>
         )
