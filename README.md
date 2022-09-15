@@ -8,3 +8,6 @@ This application is used to track the personal expense. It is PWA compliant.
 -   [x] Add Dark Theme
 -   [ ] Add page analytics with Jitsu, DBT, Metabase
 -   [ ] Create email templates in supabase
+-   [ ] Implement react-query
+-   [ ] Add search functionality to expense list
+-   [ ] Add pagination to expense list
