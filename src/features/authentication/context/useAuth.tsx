@@ -4,10 +4,8 @@ import { supabase } from '../../../db/supabaseClient'
 
 import { loginUser, registerUser } from '../services/api'
 
-export interface IRegister {
+export interface IRegister extends ILogin {
     name: string
-    email: string
-    password: string
 }
 
 export interface ILogin {
@@ -48,6 +46,7 @@ const AuthProvider = ({ children }: IChildren) => {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [success, setSuccess] = useState<boolean>(false)
 
+    // calls supabase's signin function
     const login = (credentials: ILogin) => {
         setIsLoading(true)
         loginUser(credentials).then(response => {
@@ -58,6 +57,11 @@ const AuthProvider = ({ children }: IChildren) => {
         })
     }
 
+    // calls supabase's signup function to register the user
+    // also I have written a database function in supabase which gets triggered
+    // after the user is registered in auth table.
+    // The function inserts the user data in a new profile table where we will be
+    // storing the additional info for the user
     const register = (credentials: IRegister) => {
         setIsLoading(true)
         registerUser(credentials)
@@ -82,6 +86,11 @@ const AuthProvider = ({ children }: IChildren) => {
         setError(null)
     }
 
+    // This useEffect hook is responsible for restoring the user's logged in
+    // status in the following conditions:
+    // 1. When user logs in via login form
+    // 2. When the user is already logged in, redirect the user to dashboard
+    // 3. When the user logs out, redirect the user to /login page
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
             setSession(session)
